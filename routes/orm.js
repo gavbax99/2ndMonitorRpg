@@ -37,8 +37,18 @@ function objToSql(ob) {
 var orm = {
 
     // EXAMPLE METHOD
-    selectOne: (tableName, id, cb) => {
-        var queryString = "SELECT * FROM " + tableName + " WHERE id = " + id;
+    // selectOne: (tableName, id, cb) => {
+    //     var queryString = "SELECT * FROM " + tableName + " WHERE id = " + id;
+
+    //     connection.query(queryString, function (err, res) {
+    //         if (err) throw err;
+    //         cb(res);
+    //     });
+    // },
+
+    // Update single material
+    getCurrencies: (uid, cb) => {
+		var queryString = `SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = ${uid} AND (mat = "Bronze" OR mat = "Silver" OR mat = "Gold" OR mat = "Mythril"))`;
 
         connection.query(queryString, function (err, res) {
             if (err) throw err;
@@ -47,8 +57,8 @@ var orm = {
     },
 
     // Update single material
-    updateMaterial: (userID, mat, qty, cb) => {
-		var queryString = `UPDATE materials SET qty = qty + ${qty} WHERE (uid = "${userID}" AND mat = "${mat}")`;
+    updateMaterial: (uid, mat, qty, img_url, cb) => {
+		var queryString = `INSERT INTO react_rpg_db.materials (uid, mat, qty, img_url) VALUES (${uid}, "${mat}", ${qty}, "${img_url}") ON DUPLICATE KEY UPDATE qty = qty + ${qty};`;
 
         connection.query(queryString, function (err, res) {
             if (err) throw err;

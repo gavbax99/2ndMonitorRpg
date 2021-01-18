@@ -1,19 +1,21 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Sidebar.css';
 
-// Navigation
-import { useDispatch } from 'react-redux';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '../../store/actions/navigationActions';
+import { addSinglecurrency } from '../../store/actions/currencyActions';
 
 // Tools
-import Tools from "../../constants/Tools";
+import Materials from "../../constants/Materials";
 
 const Currency = props => {
 	return (
 		<div className={`flex-full flex-col sidebar__currency--single`}>
-			<img src={props.url} alt={props.name} className="sidebar__currency--image"/>
-			<p className="sidebar__currecncy--number">50</p>
+			<img src={props.img_url} alt={props.name} className="sidebar__currency--image"/>
+			<p className="sidebar__currecncy--number">{props.value}</p>
 		</div>
 	);
 };
@@ -42,12 +44,28 @@ const Level = props => {
 // ========== COMPONENT ==========
 const Sidebar = props => {
 
+	// Redux
 	const dispatch = useDispatch();
+	const currencyBronze = useSelector(state => state.currencyReducer.Bronze);
+	const currencySilver = useSelector(state => state.currencyReducer.Silver);
+	const currencyGold = useSelector(state => state.currencyReducer.Gold);
+	const currencyMythril = useSelector(state => state.currencyReducer.Mythril);
 
 	const [nav, setNav] = useState(0);
-
 	const [toggleCurrency, setToggleCurrency] = useState(false);
 	const [toggleMaterials, setToggleMaterials] = useState(false);
+
+	// On mount, load currencies
+	useEffect(() => {
+		// ************* UPDATE DYNAMICALLY WITH UID
+		axios.get("/api/getCurrencies/1")
+		.then((res) => {
+			// res.data contains array of 4 currencies
+			res.data.forEach(currency => {
+				dispatch(addSinglecurrency(currency.mat, currency.qty));
+			});
+		});
+	}, []);
 
 	return (
 		<div className={`flex-full flex-col sidebar`}>
@@ -72,8 +90,9 @@ const Sidebar = props => {
 				<div className={`flex-full`}
 					style={{ backgroundColor: nav === 2 ? "rgb(240, 240, 240)" : "rgb(167, 160, 160)" }}
 					onClick={() => { 
-						setNav(2);
-						dispatch(navigate("Home"));
+						// setNav(2);
+						// dispatch(navigate("Home"));
+
 					}}>
 					O
 				</div>
@@ -95,20 +114,28 @@ const Sidebar = props => {
 				{toggleCurrency ?
 					<div className={`flex-full flex-row w100 sidebar__currency--container`}>
 						<Currency 
-							url={Tools.c_bronze}
+							img_url={Materials.bronze.img_url}
 							name="Bronze"
+							value={currencyBronze}
+							// test={test}
 						/>
 						<Currency 
-							url={Tools.c_silver}
+							img_url={Materials.silver.img_url}
 							name="Silver"
+							value={currencySilver}
+							// test={test}
 						/>
 						<Currency 
-							url={Tools.c_gold}
+							img_url={Materials.gold.img_url}
 							name="Gold"
+							value={currencyGold}
+							// test={test}
 						/>
 						<Currency 
-							url={Tools.c_blue}
-							name="Blue"
+							img_url={Materials.mythril.img_url}
+							name="Mythril"
+							value={currencyMythril}
+							// test={test}
 						/>
 					</div>
 					:

@@ -8,10 +8,21 @@ var router = express.Router();
 // API ROUTES 
 // *************************************************
 
-router.get("/api/selectone", function (req, res) {
-    orm.selectOne(
-        "test_table",
-        1,
+// router.get("/api/selectone", function (req, res) {
+//     orm.selectOne(
+//         "test_table",
+//         1,
+//         function (result) {
+// 			console.log("result", result)
+//             res.json(result);
+//         }
+//     );
+// });
+
+// GET CURRENCIES
+router.get("/api/getCurrencies/:uid", function (req, res) {
+    orm.getCurrencies(
+        req.params.uid,
         function (result) {
 			console.log("result", result)
             res.json(result);
@@ -19,11 +30,13 @@ router.get("/api/selectone", function (req, res) {
     );
 });
 
+// UPDATE A SINGLE MATERIAL OR CURRENCY
 router.put("/api/updateMaterial/", function (req, res) {
     orm.updateMaterial(
 		req.body.uid,
 		req.body.mat,
 		req.body.qty,
+		req.body.img_url,
         function (result) {
 			console.log("result", result)
             res.json(result);

@@ -14,6 +14,9 @@ import { useSelector } from 'react-redux';
 import QuestCard from "../../componenets/QuestCard/QuestCard";
 import Sidebar from "../../componenets/Sidebar/Sidebar";
 
+// Constants
+import Materials from '../../constants/Materials';
+
 // ========== COMPONENT ==========
 const HomeScreen = props => {
 
@@ -26,15 +29,15 @@ const HomeScreen = props => {
 			<div className={`homeScreen__card-container`}>
 				<QuestCard 
 					title="Hero Quest"
-					duration={50}
+					duration={200}
 					loot={[
-						{name: "Minecraft Axe", url: "./images/reward_axe.jpg", p: 99.95, color: "#1e6cd6", tick: 6},
-						{name: "Gun", url: "./images/reward_gun.jpg", p: 99.99, color: "#000", tick: 6},
-						{curr: true, name: "Bronze", url: "./images/curr_bronze.jpg", p: 98, color: "#674d56", tick: 2},
-						{curr: true, name: "Silver", url: "./images/curr_silver.jpg", p: 98.5, color: "#969696", tick: 2},
-						{curr: true, name: "Gold", url: "./images/curr_gold.jpg", p: 99.3, color: "#ffe946", tick: 2},
-						{curr: true, name: "Red", url: "./images/curr_red.jpg", p: 99.7, color: "#fc5044", tick: 2},
-						{win: true, name: "Ship", url: "./images/reward_ship.jpg", color: "#0fca18", tick: 10, qty: 5}
+						{...Materials.axe, p: 99.5},
+						{...Materials.gun, p: 99},
+						{...Materials.bronze, p: 93},
+						{...Materials.silver, p: 96},
+						{...Materials.gold, p: 98},
+						{...Materials.mythril, p: 99},
+						{...Materials.ship, win: true, qty: 5}
 					]}
 				/>
 			</div>

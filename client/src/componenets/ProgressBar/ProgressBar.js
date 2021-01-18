@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ProgressBar.css';
 
-import { increaseMaterial } from "../../constants/functions";
+import { updateMaterial } from "../../constants/functions";
 import Tools from '../../constants/Tools';
+import Materials from '../../constants/Materials';
 
 const Tick = props => {
 	return (
@@ -26,7 +27,7 @@ const SingleCurrency = props => {
 			className={`flex-full flex-col currency__group`}
 			onMouseEnter={() => { setDisplay(true) }}
 			onMouseLeave={() => { setDisplay(false) }}>
-			<img src={props.url} className={`flex-full currency__image`} alt={props.name} />
+			<img src={props.img_url} className={`flex-full currency__image`} alt={props.name} />
 			<p className={`flex-full currency__count`}>{props.count}</p>
 
 			<div 
@@ -48,7 +49,7 @@ const RewardIcon = props => {
 		<div className={`flex-full currency__reward--container`}
 			onMouseEnter={()=>{ setDisplay(true) }}
 			onMouseLeave={()=>{ setDisplay(false) }}>
-			<img src={props.url} alt="reward" className="currency__reward-icon" />
+			<img src={props.img_url} alt="reward" className="currency__reward-icon" />
 
 			<div 
 				className={`flex-full flex-col loot__reward`}
@@ -65,10 +66,11 @@ const RewardIcon = props => {
 const Treasure = props => {
 	const claim = () => {
 		console.log("claimed")
+		updateMaterial(1, Materials.lollipop.name, 1, Materials.lollipop.img_url);
 		props.setTreasure(false);
 		props.setRewards([...props.rewards, {
-			name: "Pop", 
-			url: Tools.r_pop
+			name: Materials.lollipop.name, 
+			img_url: Materials.lollipop.img_url
 		}]);
 	}
 
@@ -127,11 +129,11 @@ const ProgressBar = props => {
 		if (percent === 100) {
 			props.loot.forEach((lootObj) => {
 				if (lootObj.win) {
-					increaseMaterial("1", lootObj.name, lootObj.qty);
+					updateMaterial(1, lootObj.name, lootObj.qty, lootObj.img_url);
 					setRewardTicks([...rewardTicks, {percent: percent, width: lootObj.tick, color: lootObj.color}]);
 					setRewards([...rewards, {
 						name: lootObj.name, 
-						url: lootObj.url
+						img_url: lootObj.img_url
 					}]);
 				}
 			});
@@ -145,7 +147,7 @@ const ProgressBar = props => {
 		props.loot.forEach(lootObj => {
 			const rng = Math.random() * 100;
 			if (rng > lootObj.p) {
-				increaseMaterial("1", lootObj.name, 1);
+				updateMaterial(1, lootObj.name, 1, lootObj.img_url);
 				// New tick
 				newTickArr = [...newTickArr, {percent: percent, width: lootObj.tick, color: lootObj.color}];
 
@@ -156,7 +158,7 @@ const ProgressBar = props => {
 					// New item
 					newRewardsArr = [...newRewardsArr, {
 						name: lootObj.name,
-						url: lootObj.url,
+						img_url: lootObj.img_url,
 						number: 1,
 					}];
 				}
@@ -195,7 +197,7 @@ const ProgressBar = props => {
 								return (
 									<SingleCurrency 
 										name={loot.name}
-										url={loot.url}
+										img_url={loot.img_url}
 										count={currencyObj[loot.name]}
 										key={i}
 									/>
@@ -214,7 +216,7 @@ const ProgressBar = props => {
 						{rewards.length > 0 ? rewards.map((reward, i) => {
 							return (
 								<RewardIcon
-									url={reward.url}
+									img_url={reward.img_url}
 									name={reward.name}
 									key={i} 
 								/>

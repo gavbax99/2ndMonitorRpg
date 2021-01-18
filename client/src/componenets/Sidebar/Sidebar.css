@@ -3,6 +3,7 @@
 	position: sticky;
 	min-height: 100vh;
 	min-width: 180px;
+	max-width: 180px;
 	background-color: rgb(206, 195, 195);
 	justify-content: flex-start;
 	/* overflow-y: scroll; */
