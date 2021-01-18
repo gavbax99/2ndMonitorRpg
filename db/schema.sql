@@ -1,0 +1,60 @@
+CREATE DATABASE luchador_db;
+
+USE luchador_db;
+
+CREATE TABLE players (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    token VARCHAR(200) NOT NULL DEFAULT "0",
+    npc BOOLEAN NOT NULL DEFAULT 0,
+    boss BOOLEAN NOT NULL DEFAULT 0,
+    created TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    last_login TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    
+    char_name VARCHAR(30) NOT NULL,
+    profile_pic VARCHAR (500) DEFAULT "./images/default.jpg",
+
+    exp INTEGER(5) NOT NULL DEFAULT 0,
+    lvl INTEGER(2) NOT NULL DEFAULT 1,
+    new_ability INTEGER(1) DEFAULT 0,
+
+    fame INTEGER(4) NOT NULL DEFAULT 0,
+    hp INTEGER(3) NOT NULL DEFAULT 60,
+
+    fights INTEGER (4) NOT NULL DEFAULT 0,
+    wins INTEGER (4) NOT NULL DEFAULT 0,
+    losses INTEGER (4) NOT NULL DEFAULT 0,
+
+    tickets INTEGER (2) NOT NULL DEFAULT 15,
+    tickets_max INTEGER (2) NOT NULL DEFAULT 15,
+
+    refresh INTEGER (2) NOT NULL DEFAULT 0,
+
+    ab1_name VARCHAR(30) NOT NULL DEFAULT "Flying Elbow",
+    ab1_dlow INTEGER(3) NOT NULL DEFAULT 6,
+    ab1_dhigh INTEGER(3) NOT NULL DEFAULT 12,
+    ab1_speed INTEGER(1) NOT NULL DEFAULT 5,
+    ab1_crit DECIMAL(3,2) NOT NULL DEFAULT 0.08,
+    ab1_fail DECIMAL(3,2) NOT NULL DEFAULT 0.05,
+    ab1_color VARCHAR(7) NOT NULL DEFAULT "#29ABE2",
+    ab1_icon VARCHAR(50) NOT NULL DEFAULT "./images/icon1.svg",
+
+    ab2_name VARCHAR(30) NOT NULL DEFAULT "Body Slam",
+    ab2_dlow INTEGER(3) NOT NULL DEFAULT 10,
+    ab2_dhigh INTEGER(3) NOT NULL DEFAULT 14,
+    ab2_speed INTEGER(1) NOT NULL DEFAULT 4,
+    ab2_crit DECIMAL(3,2) NOT NULL DEFAULT 0.12,
+    ab2_fail DECIMAL(3,2) NOT NULL DEFAULT 0.10,
+    ab2_color VARCHAR(7) NOT NULL DEFAULT "#C61A1A",
+    ab2_icon VARCHAR(50) NOT NULL DEFAULT "./images/icon2.svg",
+
+    ab3_name VARCHAR(30) NOT NULL DEFAULT "kapow!",
+    ab3_dlow INTEGER(3) NOT NULL DEFAULT 15,
+    ab3_dhigh INTEGER(3) NOT NULL DEFAULT 21,
+    ab3_speed INTEGER(1) NOT NULL DEFAULT 2,
+    ab3_crit DECIMAL(3,2) NOT NULL DEFAULT 0.08,
+    ab3_fail DECIMAL(3,2) NOT NULL DEFAULT 0.10,
+    ab3_color VARCHAR(7) NOT NULL DEFAULT "#000000",
+    ab3_icon VARCHAR(50) NOT NULL DEFAULT "./images/icon6.svg",
+
+    PRIMARY KEY (id)
+);
