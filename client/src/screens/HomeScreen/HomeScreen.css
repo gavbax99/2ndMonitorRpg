@@ -1,0 +1,24 @@
+.homeScreen {
+	position: relative;
+	width: 100%;
+	background-color: #fff;
+	align-items: flex-start;
+}
+
+.homeScreen__card-container {
+	width: 100%;
+	padding: 2rem;
+	background-color: rgb(240, 240, 240);
+	min-height: 100vh;
+}
+
+.homeScreen__test {
+	position: absolute;
+	width: calc(100% - 180px);
+	height: 100%;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: red;
+	z-index: 9999;
+}

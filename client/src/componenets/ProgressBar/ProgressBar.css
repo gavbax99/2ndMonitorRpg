@@ -1,0 +1,141 @@
+.progressBar__container {
+	position: relative;
+}
+
+.progressBar__subtitle {
+	font-size: 0.75rem;
+	padding-bottom: 0.25rem
+}
+
+.progressBar__currency--container {
+	margin-right: 1rem;
+}
+
+.progressBar {
+	position: relative;
+	width: 100%;
+	height: 4px;
+	background-color: gray;
+	margin-bottom: 0.25rem;
+}
+
+.progressBar__tick {
+    position: absolute;
+    width: 7px;
+    top: -4px;
+    height: 12px;
+    background-color: lightblue;
+    z-index: 999;
+}
+
+.progressBarFill {
+	height: 4px;
+	/* background-color: red; */
+}
+
+.progressPercent {
+    padding-top: 0.5rem;
+    padding-left: 0.75rem;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.currency__group {
+	position: relative;
+	margin-right: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+.currency__image {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 0.25rem;
+}
+
+.currency__count {
+	font-size: 12px;
+}
+
+.currency__reward {
+	position: absolute;
+	top: 28px;
+	left: 0;
+	transform: translateX(calc(-50% + 10px));
+	padding: 1rem;
+	background-color: rgb(19, 1, 19);
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	z-index: 9999;
+}
+
+.loot__reward {
+	position: absolute;
+	width: 14rem;
+	top: 30px;
+	left: calc(-7rem + 12px);
+	padding: 1rem;
+	background-color: rgb(19, 1, 19);
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	z-index: 9999;
+}
+
+.currency__reward--triangle {
+	position: absolute;
+	top: -4px;
+	left: calc(50% - 10px);
+	width: 20px;
+	height: 20px;
+	background-color: rgb(19, 1, 19);
+	transform:  rotate(45deg);
+}
+
+.currency__reward--container {
+	position: relative;
+	cursor: pointer;
+}
+
+.currency__reward-icon {
+	width: 28px;
+	height: 28px;
+	margin-right: 0.5rem;
+}
+
+/* .currency__reward {
+	position: absolute;
+	width: 14rem;
+	top: 30px;
+	left: calc(-7rem + 12px);
+	padding: 1rem;
+	background-color: rgb(19, 1, 19);
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	z-index: 9999;
+}
+
+.currency__reward--triangle {
+	position: absolute;
+	top: -4px;
+	left: calc(50% - 10px);
+	width: 20px;
+	height: 20px;
+	background-color: rgb(19, 1, 19);
+	transform:  rotate(45deg);
+}
+
+.currency__reward--text {
+
+} */
+
+.treasure__x {
+    position: absolute;
+    top: 4px;
+    left: -125px;
+    padding: 1rem;
+	background-color: red;
+	border-radius: 4px;
+	cursor: pointer;
+}

@@ -1,0 +1,128 @@
+.sidebar {
+	top: 0;
+	position: sticky;
+	min-height: 100vh;
+	min-width: 180px;
+	background-color: rgb(206, 195, 195);
+	justify-content: flex-start;
+	/* overflow-y: scroll; */
+}
+
+.sidebar__nav {
+
+}
+
+.sidebar__nav div {
+	flex: 1;
+	padding: 0.5rem 0;
+	cursor: pointer;
+}
+
+.sidebar__content {
+	padding: 0.5rem;
+}
+
+.sidebar__dropdown--title {
+	justify-content: space-between;
+	border-bottom: 1px solid black;
+	text-align: right;
+	padding: 3px;
+	margin-bottom: 1rem;
+	cursor: pointer;
+}
+
+.sidebar__username {
+	width: 100%;
+	text-align: center;
+	font-weight: 700;
+	font-size: 1rem;
+	margin-bottom: 1rem;
+	margin-top: 0.5rem;
+}
+
+/* CURRENCIES */
+
+.sidebar__currency--container {
+	flex-wrap: wrap;
+}
+
+.sidebar__currency--single {
+	flex: 1 0 25%;
+	margin-bottom: 1rem;
+}
+
+.sidebar__currency--image {
+	width: 24px;
+	height: 24px;
+	margin-bottom: 0.25rem;
+}
+
+.sidebar__currecncy--number {
+	text-align: center;
+	font-size: 0.75rem;
+}
+
+.sidebar__materials--container {
+	flex-wrap: wrap;
+}
+
+.sidebar__materials--single {
+	flex: 1 0 20%;
+	margin-bottom: 1rem;
+}
+
+.sidebar__materials--imageplaceholder {
+	width: 18px;
+	height: 18px;
+	border-radius: 18px;
+	background-color: royalblue;
+	margin-bottom: 0.25rem;
+} 
+
+.sidebar__materials--number {
+	text-align: center;
+	font-size: 0.75rem;
+}
+
+/* Level */
+
+.sidebar__level--container {
+	position: relative;
+	margin-bottom: 1.5rem;
+}
+
+.sidebar__level--backdrop {
+	width: 80px;
+	height: 80px;
+	background-image: url("https://cdn.mos.cms.futurecdn.net/ntFmJUZ8tw3ULD3tkBaAtf.jpg");
+	background-size: contain;
+	border-radius: 80px;
+}
+
+.sidebar__level {
+	position: absolute;
+	top: 0.2rem;
+	font-size: 4rem;
+	font-weight: 700;
+	color: #fff;
+	text-shadow:
+	-1px -1px 0 #000,  
+	 1px -1px 0 #000,
+	 -1px 1px 0 #000,
+	  1px 1px 0 #000;
+}
+
+.sidebar__level--progressBar {
+	position: absolute;
+	bottom: 0.1rem;
+	width: 50%;
+	height: 6px;
+	background-color: gray;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.sidebar__level--progressBarFill {
+	height: 6px;
+	background-color: red;
+}
