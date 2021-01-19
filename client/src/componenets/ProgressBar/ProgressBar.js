@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ProgressBar.css';
 
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { addSinglecurrency } from '../../store/actions/currencyActions';
+
 import { updateMaterial } from "../../constants/functions";
-import Tools from '../../constants/Tools';
 import Materials from '../../constants/Materials';
 
 const Tick = props => {
@@ -92,6 +95,9 @@ const Treasure = props => {
 // ========== COMP ==========
 const ProgressBar = props => {
 
+	// Redux
+	const dispatch = useDispatch();
+
 	const [treasure, setTreasure] = useState(false);
 	const [rewards, setRewards] = useState([]);
 	const [expTime, setExpTime] = useState(Date.now() + (1000 * props.duration));
@@ -154,6 +160,7 @@ const ProgressBar = props => {
 				if (lootObj.curr) {
 					// New currency
 					newCurrencyObj = {...newCurrencyObj, [lootObj.name]: newCurrencyObj[lootObj.name] + 1};
+					dispatch(addSinglecurrency(lootObj.name, 1));
 				} else {
 					// New item
 					newRewardsArr = [...newRewardsArr, {
@@ -170,7 +177,7 @@ const ProgressBar = props => {
 
 		// TREASURE
 		const rnggg = Math.random() * 100;
-		console.log("rng", rnggg);
+		// console.log("rng", rnggg);
 		if (rnggg > 95) { setTreasure(true) };
 		// TREASURE
 	}, [percent]);

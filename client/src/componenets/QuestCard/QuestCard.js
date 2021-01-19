@@ -9,8 +9,8 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 const QuestCard = props => {
 	return (
 		<div className={`flex-full flex-row questCard`}>
-			<div className={`flex-full testBox`}></div>
 
+			<div className={`flex-full testBox`}></div>
 
 			<div className={`flex-full flex-col w100 infoContainer`}>
 				<div className={`flex-full flex-row w100 quest-card__title-reward--container`}>

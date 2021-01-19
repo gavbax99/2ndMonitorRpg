@@ -46,9 +46,19 @@ var orm = {
     //     });
     // },
 
-    // Update single material
+    // Grab all currencies
     getCurrencies: (uid, cb) => {
 		var queryString = `SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = ${uid} AND (mat = "Bronze" OR mat = "Silver" OR mat = "Gold" OR mat = "Mythril"))`;
+
+        connection.query(queryString, function (err, res) {
+            if (err) throw err;
+            cb(res);
+        });
+    },
+
+    // Grab all materials
+    getMaterials: (uid, cb) => {
+		var queryString = `SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = ${uid} AND (mat != "Bronze" AND mat != "Silver" AND mat != "Gold" AND mat != "Mythril"))`;
 
         connection.query(queryString, function (err, res) {
             if (err) throw err;

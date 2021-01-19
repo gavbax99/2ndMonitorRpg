@@ -6,7 +6,6 @@ import './Sidebar.css';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '../../store/actions/navigationActions';
-import { addSinglecurrency } from '../../store/actions/currencyActions';
 
 // Tools
 import Materials from "../../constants/Materials";
@@ -23,8 +22,8 @@ const Currency = props => {
 const Material = props => {
 	return (
 		<div className={`flex-full flex-col sidebar__materials--single`}>
-			<div className="sidebar__materials--imageplaceholder"></div>
-			<p className="sidebar__materials--number">12</p>
+			<img src={props.img_url} alt={props.name} className="sidebar__currency--image"/>
+			<p className="sidebar__materials--number">{props.value}</p>
 		</div>
 	);
 };
@@ -50,22 +49,11 @@ const Sidebar = props => {
 	const currencySilver = useSelector(state => state.currencyReducer.Silver);
 	const currencyGold = useSelector(state => state.currencyReducer.Gold);
 	const currencyMythril = useSelector(state => state.currencyReducer.Mythril);
+	const materialObj = useSelector(state => state.currencyReducer.materialObj);
 
 	const [nav, setNav] = useState(0);
-	const [toggleCurrency, setToggleCurrency] = useState(false);
-	const [toggleMaterials, setToggleMaterials] = useState(false);
-
-	// On mount, load currencies
-	useEffect(() => {
-		// ************* UPDATE DYNAMICALLY WITH UID
-		axios.get("/api/getCurrencies/1")
-		.then((res) => {
-			// res.data contains array of 4 currencies
-			res.data.forEach(currency => {
-				dispatch(addSinglecurrency(currency.mat, currency.qty));
-			});
-		});
-	}, []);
+	const [toggleCurrency, setToggleCurrency] = useState(true);
+	const [toggleMaterials, setToggleMaterials] = useState(true);
 
 	return (
 		<div className={`flex-full flex-col sidebar`}>
@@ -117,25 +105,21 @@ const Sidebar = props => {
 							img_url={Materials.bronze.img_url}
 							name="Bronze"
 							value={currencyBronze}
-							// test={test}
 						/>
 						<Currency 
 							img_url={Materials.silver.img_url}
 							name="Silver"
 							value={currencySilver}
-							// test={test}
 						/>
 						<Currency 
 							img_url={Materials.gold.img_url}
 							name="Gold"
 							value={currencyGold}
-							// test={test}
 						/>
 						<Currency 
 							img_url={Materials.mythril.img_url}
 							name="Mythril"
 							value={currencyMythril}
-							// test={test}
 						/>
 					</div>
 					:
@@ -151,21 +135,23 @@ const Sidebar = props => {
 				</div>
 				{toggleMaterials ?
 					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
-						<Material />
+{/* 
+						<div style={{height: "20px", width: "100%"}} onClick={() => {
+							console.log(currencyBronze);
+						}}>X</div> */}
+
+						{Object.keys(materialObj).length > 0 ? Object.keys(materialObj).map((mat, i) => {
+							return (
+								<Material 
+									img_url={materialObj[mat].img_url}
+									name={materialObj[mat].mat}
+									value={materialObj[mat].qty}
+									key={i}
+								/>
+							)
+						})
+						: null}
+
 					</div>
 					:
 					null

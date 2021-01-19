@@ -30,6 +30,17 @@ router.get("/api/getCurrencies/:uid", function (req, res) {
     );
 });
 
+// GET MATERIALS
+router.get("/api/getMaterials/:uid", function (req, res) {
+    orm.getMaterials(
+        req.params.uid,
+        function (result) {
+			console.log("result", result)
+            res.json(result);
+        }
+    );
+});
+
 // UPDATE A SINGLE MATERIAL OR CURRENCY
 router.put("/api/updateMaterial/", function (req, res) {
     orm.updateMaterial(

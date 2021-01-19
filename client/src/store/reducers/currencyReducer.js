@@ -3,15 +3,22 @@ const initState = {
 	Silver: 0,
 	Gold: 0,
 	Mythril: 0,
+	materialObj: {},
 };
 
 const currencyReducer = (state = initState, action) => {
 	switch (action.type) {
 		
-		// update the page
+		// Add single currency
 		case "ADD_SINGLE_CURRENCY":
 			return Object.assign({}, state, {
 				[action.currency]: state[action.currency] + action.qty,
+			});
+
+		// update the page
+		case "UPDATE_ALL_MATERIALS":
+			return Object.assign({}, state, {
+				materialObj: action.materials
 			});
 
 		// first return the initState
