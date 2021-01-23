@@ -20,6 +20,8 @@
 }
 
 .questProgressBar__percent {
+	min-width: 60px;
+	max-width: 60px;
     padding-top: 0.5rem;
     padding-left: 0.75rem;
     font-size: 12px;
@@ -28,9 +30,11 @@
 
 .questProgressBar__tick {
     position: absolute;
-    width: 7px;
+    /* width: 7px;
     top: -4px;
     height: 12px;
-    background-color: lightblue;
-    z-index: 999;
+	background-color: lightblue; */
+	border-radius: 100%;
+	z-index: 999;
+	border: 1px solid rgb(0, 0, 0);
 }

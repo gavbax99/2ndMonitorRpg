@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './HeroQuestCard.css';
 
 // Components
@@ -37,9 +37,16 @@ const HeroQuestCard = props => {
 	const [lootObj, setLootObj] = useState(props.loot);
 
 	// Updating loot opject's qty
-	// const updateLootQty = (keyName, qty) => {
-	// 	setLootObj({...lootObj, [`${keyName}`]: { ...lootObj[`${keyName}`], qty: qty }});
-	// };
+	const updateLootQty = (lootArr) => {
+		console.log(lootArr);
+		let newLootObj = {...lootObj};
+		lootArr.forEach(loot => {
+			// Update the loot's quantity
+			newLootObj = {...newLootObj, [`${loot.name}`]: {...newLootObj[`${loot.name}`], qty: newLootObj[`${loot.name}`].qty + loot.qty}};
+		})
+		// setLootObj({...lootObj, [`${keyName}`]: { ...lootObj[`${keyName}`], qty: qty }});
+		setLootObj(newLootObj);
+	};
 
 	// Remove the quest
 	const removeQuest = () => {
@@ -98,7 +105,7 @@ const HeroQuestCard = props => {
 						<div className={`flex-full flex-row heroQuestCard__loot--currencies`}>
 							{lootObj && Object.keys(lootObj).map((loot) => {
 								// console.log(lootObj[loot]);
-								if (!lootObj[loot].curr && lootObj[loot].qty >= 0) {
+								if (!lootObj[loot].curr && lootObj[loot].qty > 0) {
 									return (
 										<SingleReward 
 											name={lootObj[loot].name}
@@ -132,6 +139,7 @@ const HeroQuestCard = props => {
 					timeStarted={props.timeStarted}
 					timeFinished={props.timeFinished}
 					timeNow={props.timeNow}
+					updateLootQty={updateLootQty}
 					loot={props.loot}
 				/>
 

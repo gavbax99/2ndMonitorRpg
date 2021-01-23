@@ -1,15 +1,35 @@
+// I take in time and use a game loop to display percent or roll for loot
+
 // React and CSS
 import React, { useState, useEffect } from 'react';
 import './QuestProgressBar.css';
 
-// I take in time and use a game loop to display percent or roll for loot
+// COMPONENT: tick
+const Tick = props => {
+	return (
+		<div 
+			className={`questProgressBar__tick`}
+			style={{
+				left: `${props.percent}%`, 
+				top: `${props.top}px`, 
+				width: `${props.width}px`, 
+				height: `${props.width}px`, 
+				backgroundColor: props.color
+			}}>
+		</div>
+	);
+};
+
+// ========== COMPONENT ==========
 const QuestProgressBar = props => {
 
 	// State
 	const [startTime, setStartTime] = useState(props.timeStarted);
 	const [expTime, setExpTime] = useState(props.timeFinished);
-	const [timeNow, setTimeNow] = useState(props.timeNow);
+	// const [timeNow, setTimeNow] = useState(props.timeNow);
+	const [lootObj, setLootObj] = useState(props.loot);
 	const [percent, setPercent] = useState(0);
+	const [ticks, setTicks] = useState([]);
 
 	// Initiate loop
 	useEffect(() => {
@@ -38,10 +58,34 @@ const QuestProgressBar = props => {
 		};
 
 		// Loot roll
+		rollForLoot();
+
 
 		// Treasure
 		
 	}, [percent]);
+
+	// Loot roll
+	const rollForLoot = () => {
+		// > [{name: "name", qty: qty}, {...}]
+		let lootArr = [];
+		let tickArr = [...ticks];
+
+		// For each material, roll to see if won
+		Object.keys(lootObj).forEach(loot => {
+			const rng = Math.random() * 100;
+			if (rng > lootObj[loot].p) {
+				lootArr = [...lootArr, { name: lootObj[loot].name, qty: 1 }];
+				tickArr = [...tickArr, { percent: percent, width: lootObj[loot].tick, top: lootObj[loot].tickTop, color: lootObj[loot].color }];
+			};
+		});
+
+		// If anything won, update ticks and qty
+		if (lootArr.length > 0) {
+			setTicks(tickArr);
+			props.updateLootQty(lootArr);
+		};
+	};
 
 	return (
 		<div className={`flex-full flex-col w100 flex-ai-fs questProgressBar`}>
@@ -60,16 +104,17 @@ const QuestProgressBar = props => {
 						</div>
 
 						{/* Tick */}
-						{/* {rewardTicks.length > 0 ? rewardTicks.map((obj, i) => {
+						{ticks.length > 0 ? ticks.map((tick, i) => {
 							return (
 								<Tick 
-									percent={obj.percent} 
-									width={obj.width} 
-									color={obj.color} 
+									percent={tick.percent} 
+									width={tick.width}
+									top={tick.top}
+									color={tick.color} 
 									key={i}
 								/>
 							);
-						}) : null} */}
+						}) : null}
 					</div>
 				</div>
 
