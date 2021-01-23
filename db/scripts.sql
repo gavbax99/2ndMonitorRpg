@@ -26,3 +26,7 @@ DELETE FROM materials WHERE uid = 1;
 SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = 1 AND (mat = "Bronze" OR mat = "Silver" OR mat = "Gold" OR mat = "Mythril"));
 
 SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = 1 AND (mat != "Bronze" AND mat != "Silver" AND mat != "Gold" AND mat != "Mythril"));
+
+ALTER TABLE materials ADD curr BOOLEAN DEFAULT FALSE after qty;
+
+UPDATE materials SET curr = 1 WHERE (mat = "Gold" OR mat = "Silver" OR mat = "Bronze" OR mat = "Mythril");

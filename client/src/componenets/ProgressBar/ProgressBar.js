@@ -5,11 +5,12 @@ import './ProgressBar.css';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addSinglecurrency } from '../../store/actions/currencyActions';
+import { addSinglecurrency } from '../../store/actions/actions';
 
 import { updateMaterial } from "../../constants/functions";
 import Materials from '../../constants/Materials';
 
+// COMPONENT: tick
 const Tick = props => {
 	return (
 		<div className={`progressBar__tick`}
@@ -22,6 +23,7 @@ const Tick = props => {
 	);
 };
 
+// COMPONENT: single currency
 const SingleCurrency = props => {
 	const [display, setDisplay] = useState(false);
 
@@ -45,7 +47,8 @@ const SingleCurrency = props => {
 	);
 };
 
-const RewardIcon = props => {
+// COMPONENT: single reward
+const SingleReward = props => {
 	const [display, setDisplay] = useState(false);
 
 	return (
@@ -66,6 +69,7 @@ const RewardIcon = props => {
 	);
 };
 
+// COMPONENT: treasure popup
 const Treasure = props => {
 	const claim = () => {
 		console.log("claimed")
@@ -98,12 +102,7 @@ const ProgressBar = props => {
 	// Redux
 	const dispatch = useDispatch();
 
-	const [treasure, setTreasure] = useState(false);
-	const [rewards, setRewards] = useState([]);
-	const [expTime, setExpTime] = useState(Date.now() + (1000 * props.duration));
-	const [startTime, setStartTime] = useState(Date.now());
-	const [percent, setPercent] = useState(0);
-	const [rewardTicks, setRewardTicks] = useState([]);
+	// Currencies
 	const [currencyObj, setCurrencyObj] = useState(() => {
 		let newObj = {};
 		props.loot.forEach(loot => {
@@ -111,8 +110,16 @@ const ProgressBar = props => {
 		})
 		return newObj;
 	});
+	const [rewards, setRewards] = useState([]);
+	const [treasure, setTreasure] = useState(false);
+	const [rewardTicks, setRewardTicks] = useState([]);
+	
+	// Time
+	const [expTime, setExpTime] = useState(Date.now() + (1000 * props.duration));
+	const [startTime, setStartTime] = useState(Date.now());
+	const [percent, setPercent] = useState(0);
 
-	// Initiates 1s tick
+	// Initiates 1s game loop
 	useEffect(() => {
 		const interval = setInterval(() => {
 			const maxTime = expTime - startTime;
@@ -151,6 +158,10 @@ const ProgressBar = props => {
 		let newRewardsArr = [...rewards];
 		let newTickArr = [...rewardTicks];
 		props.loot.forEach(lootObj => {
+
+			// Better random: one rng, filter list for any that have lower p, choose one from the remaining randomly
+
+
 			const rng = Math.random() * 100;
 			if (rng > lootObj.p) {
 				updateMaterial(1, lootObj.name, 1, lootObj.img_url);
@@ -222,7 +233,7 @@ const ProgressBar = props => {
 					<div className={`flex-full flex-row`}>
 						{rewards.length > 0 ? rewards.map((reward, i) => {
 							return (
-								<RewardIcon
+								<SingleReward
 									img_url={reward.img_url}
 									name={reward.name}
 									key={i} 

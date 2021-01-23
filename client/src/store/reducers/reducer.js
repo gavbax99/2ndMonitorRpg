@@ -3,10 +3,12 @@ const initState = {
 	Silver: 0,
 	Gold: 0,
 	Mythril: 0,
+	currencyObj: {},
 	materialObj: {},
+	page: "Loading",
 };
 
-const currencyReducer = (state = initState, action) => {
+const reducer = (state = initState, action) => {
 	switch (action.type) {
 		
 		// Add single currency
@@ -16,10 +18,23 @@ const currencyReducer = (state = initState, action) => {
 			});
 
 		// update the page
+		case "UPDATE_ALL_CURRENCIES":
+			return Object.assign({}, state, {
+				currencyObj: action.currencies
+			});
+
+		// update the page
 		case "UPDATE_ALL_MATERIALS":
 			return Object.assign({}, state, {
 				materialObj: action.materials
 			});
+
+		// update the page
+		case "NAVIGATE":
+			return Object.assign({}, state, {
+				page: action.page,
+			});
+
 
 		// first return the initState
 		default:
@@ -27,4 +42,4 @@ const currencyReducer = (state = initState, action) => {
 	};
 };
 
-export default currencyReducer;
+export default reducer;

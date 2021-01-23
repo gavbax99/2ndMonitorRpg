@@ -58,7 +58,8 @@ var orm = {
 
     // Grab all materials
     getMaterials: (uid, cb) => {
-		var queryString = `SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = ${uid} AND (mat != "Bronze" AND mat != "Silver" AND mat != "Gold" AND mat != "Mythril"))`;
+		var queryString = `SELECT * FROM react_rpg_db.materials WHERE uid = ${uid};`;
+		// var queryString = `SELECT * FROM react_rpg_db.materials WHERE (uid = ${uid} AND (mat != "Bronze" AND mat != "Silver" AND mat != "Gold" AND mat != "Mythril"))`;
 
         connection.query(queryString, function (err, res) {
             if (err) throw err;

@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux';
 
 // Components
 import QuestCard from "../../componenets/QuestCard/QuestCard";
+
+import HeroQuestCard from "../../componenets/questCards/HeroQuestCard/HeroQuestCard";
 import Sidebar from "../../componenets/Sidebar/Sidebar";
 
 // Constants
@@ -20,14 +22,16 @@ import Materials from '../../constants/Materials';
 // ========== COMPONENT ==========
 const HomeScreen = props => {
 
-	const currentPage = useSelector(state => state.navigationReducer.page);
+	const currentPage = useSelector(state => state.reducer.page);
 
 	return (
 		<div className={`flex-full flex-row w100 homeScreen`}>
 			<Sidebar />
 
 			<div className={`homeScreen__card-container`}>
-				<QuestCard 
+
+
+				{/* <QuestCard 
 					title="Hero Quest"
 					duration={200}
 					loot={[
@@ -39,7 +43,17 @@ const HomeScreen = props => {
 						{...Materials.mythril, p: 99},
 						{...Materials.ship, win: true, qty: 5}
 					]}
+				/> */}
+
+				<HeroQuestCard 
+					title="Hero Quest 2"
+					questDuration={100}
+					loot={[
+
+					]}
 				/>
+
+
 			</div>
 
 			{currentPage === "Test" ?
