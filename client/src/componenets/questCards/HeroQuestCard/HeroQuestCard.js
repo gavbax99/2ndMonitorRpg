@@ -76,8 +76,36 @@ const HeroQuestCard = props => {
 		dispatch(updateAllMaterials(newMaterialObj));
 	};
 
+	// When they click complete quest
+	const completeQuest = () => {
+		// Update local loot state and redux state
+		let newCurrencyObj = {...currencyObj};
+		let newMaterialObj = {...materialObj};
+
+		props.winLoot.forEach((loot => {
+			// Update the loot's quantity in redux
+			if (loot.mat.curr) {
+				newCurrencyObj = {...newCurrencyObj, [`${loot.mat.name}`]: {...newCurrencyObj[`${loot.mat.name}`], qty: newCurrencyObj[`${loot.mat.name}`].qty + loot.qty}};
+			} else {
+				newMaterialObj = {...newMaterialObj, [`${loot.mat.name}`]: {...newMaterialObj[`${loot.mat.name}`], qty: newMaterialObj[`${loot.mat.name}`].qty + loot.qty}};
+			}
+
+			// Update DB
+			updateMaterial(1, loot.mat.name, loot.qty, loot.mat.img_url);
+		}));
+
+		console.log("obj", currencyObj)
+		console.log("obj", newCurrencyObj)
+
+		dispatch(updateAllCurrencies(newCurrencyObj));
+		dispatch(updateAllMaterials(newMaterialObj));
+		props.setQuestCompleted(false);
+		props.removeQuest(props.id);
+	};
+
 	// Remove the quest
 	const removeQuest = () => {
+		props.setQuestCompleted(false);
 		props.removeQuest(props.id);
 	};
 
@@ -85,12 +113,18 @@ const HeroQuestCard = props => {
 		<div className={`flex-full flex-row heroQuestCard`}>
 
 			{/* Image */}
-			<div className={`flex-full heroQuestCard__image`}></div>
+			<div className={`flex-full heroQuestCard__image`}>
+				{props.questCompleted &&
+					<div style={{width: 30, height: 30, backgroundColor: "red"}} onClick={() => {
+						completeQuest();
+					}}></div>
+				}
+			</div>
 
 			{/* Info container */}
 			<div className={`flex-full flex-col w100 heroQuestCard__info`}>
 
-				{/* Name and info */}
+				{/* Name and info bar */}
 				<div className={`flex-full flex-row w100 heroQuestCard__header`}>
 					<div className={`flex-full flex-row flex-jc-fs w100`}>
 						<p className={`heroQuestCard__header--title`}>{props.title}</p>
@@ -102,7 +136,7 @@ const HeroQuestCard = props => {
 					</div>
 				</div>
 
-				{/* Loot */}
+				{/* Materials bar */}
 				<div className={`flex-full flex-row flex-jc-fs w100 heroQuestCard__lootContainer`}>
 
 					{/* Currencies */}
@@ -168,6 +202,7 @@ const HeroQuestCard = props => {
 					timeFinished={props.timeFinished}
 					timeNow={props.timeNow}
 					updateLootQty={updateLootQty}
+					setQuestCompleted={props.setQuestCompleted}
 					loot={props.loot}
 				/>
 

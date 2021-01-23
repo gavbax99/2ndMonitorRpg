@@ -20,6 +20,7 @@ const HeroQuestContainer = props => {
 	const heroQuestObj = useSelector(state => state.reducer.heroQuestObj);
 
 	// State
+	const [questCompleted, setQuestCompleted] = useState(false);
 	const [hasQuest, setHasQuest] = useState(false);
 	const [questId, setQuestId] = useState();
 	const [questName, setQuestName] = useState();
@@ -81,6 +82,8 @@ const HeroQuestContainer = props => {
 					timeNow={timeNow}
 					setHasQuest={setHasQuest}
 					removeQuest={removeQuest}
+					setQuestCompleted={setQuestCompleted}
+					questCompleted={questCompleted}
 					loot={{
 						[Materials.bronze.name]: Materials.bronze,
 						[Materials.silver.name]: Materials.silver,
@@ -88,9 +91,14 @@ const HeroQuestContainer = props => {
 						[Materials.mythril.name]: Materials.mythril,
 						[Materials.ship.name]: Materials.ship,
 					}}
+					winLoot={[
+						{mat: Materials.silver, qty: 20},
+						{mat: Materials.gold, qty: 5},
+						{mat: Materials.gun, qty: 1},
+					]}
 				/>
 			: 
-				<div onClick={() => { giveQuest("Test", 100) }}>
+				<div onClick={() => { giveQuest("Test", 10) }}>
 					Give quest
 				</div>
 			}

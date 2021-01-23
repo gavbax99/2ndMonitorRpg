@@ -44,6 +44,7 @@ const QuestProgressBar = props => {
 
 		// Clear interval after 100%
 		if (currentPercent >= 100) {
+			props.setQuestCompleted(true);
 			clearInterval(interval);
 		};
 	};
