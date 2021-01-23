@@ -4,7 +4,9 @@ INSERT INTO materials (uid, mat, qty, img_url) VALUES (1, "x", 5, "./") ON DUPLI
 ALTER TABLE materials ADD curr BOOLEAN DEFAULT FALSE after qty;
 
 
-INSERT INTO materials (uid, mat, qty, img_url) VALUES (1, "bronze", 1, "./");
+INSERT INTO materials (uid, mat, qty, curr, img_url) VALUES (1, "Ship", 1, false, "./images/materials/mat_ship.jpg");
+SELECT * FROM react_rpg_db.materials;
+
 UPDATE materials SET qty = qty + 1 WHERE userID = "1";
 UPDATE materials SET qty = qty + 1 WHERE (userID = "2" AND mat = "gold");
 
@@ -18,9 +20,21 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE quests (
+	id INTEGER NOT NULL AUTO_INCREMENT,
+    uid int(10) NOT NULL,
+	questName VARCHAR(100) NOT NULL,
+    isHeroQuest BOOLEAN NOT NULL,
+    startTime int(255) NOT NULL,
+    endTime int(255) NOT NULL,
+    lootObj VARCHAR(10000) NOT NULL,
+    
+    PRIMARY KEY (id)
+);
+
 ALTER TABLE materials ADD COLUMN img_url VARCHAR(100) NOT NULL AFTER qty;
 
-DELETE FROM materials WHERE uid = 1;
+DELETE FROM materials WHERE mat = "Ship";
 
 SELECT mat, qty, img_url FROM react_rpg_db.materials WHERE (uid = 1 AND (mat = "Bronze" OR mat = "Silver" OR mat = "Gold" OR mat = "Mythril"));
 

@@ -81,13 +81,13 @@ const HeroQuestContainer = props => {
 					timeNow={timeNow}
 					setHasQuest={setHasQuest}
 					removeQuest={removeQuest}
-					loot={[
-						Materials.bronze,
-						Materials.silver,
-						Materials.gold,
-						Materials.mythril,
-						Materials.ship
-					]}
+					loot={{
+						[Materials.bronze.name]: Materials.bronze,
+						[Materials.silver.name]: Materials.silver,
+						[Materials.gold.name]: Materials.gold,
+						[Materials.mythril.name]: Materials.mythril,
+						[Materials.ship.name]: Materials.ship,
+					}}
 				/>
 			: 
 				<div onClick={() => { giveQuest("Test", 100) }}>

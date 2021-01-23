@@ -61,7 +61,7 @@
 }
 
 .heroQuestCard__loot {
-
+	margin-right: 1rem;
 }
 
 .heroQuestCard__loot--image {
@@ -73,15 +73,19 @@
 	font-size: 0.75rem;
 }
 
+.heroQuestCard__loot--currencies {
+	height: 36px;
+}
+
 .singleReward__container {
 	position: relative;
 	cursor: pointer;
-	margin-right: 0.5rem;
+	margin-right: 0.75rem;
 }
 
 .singleReward__rewardIcon {
-	width: 22px;
-	height: 22px;
+	width: 20px;
+	height: 20px;
 	margin-bottom: 0.25rem;
 }
 
@@ -89,7 +93,7 @@
 	position: absolute;
 	top: 28px;
 	left: 0;
-	transform: translateX(calc(-50% + 11px));
+	transform: translateX(calc(-50% + 10px));
 	padding: 1rem;
 	background-color: rgb(19, 1, 19);
 	color: #fff;
@@ -106,6 +110,10 @@
 	height: 20px;
 	background-color: rgb(19, 1, 19);
 	transform:  rotate(45deg);
+}
+
+.singleReward__value {
+	font-size: 0.75rem;
 }
 
 .singleReward__hiddenText--text {

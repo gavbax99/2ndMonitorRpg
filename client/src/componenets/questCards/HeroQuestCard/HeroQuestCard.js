@@ -15,7 +15,7 @@ const SingleReward = props => {
 			onMouseEnter={()=>{ setDisplay(true) }}
 			onMouseLeave={()=>{ setDisplay(false) }}>
 			<img src={props.img_url} alt="reward" className="singleReward__rewardIcon" />
-			<p className={`heroQuestCard__loot--text`}>{props.value}</p>
+			<p className={`singleReward__value`}>{props.value}</p>
 
 			<div 
 				className={`flex-full flex-col singleReward__hiddenText`}
@@ -34,9 +34,14 @@ const SingleReward = props => {
 const HeroQuestCard = props => {
 
 	// State
-	const [lootCurrencyArr, setLootCurrencyArr] = useState(props.loot.filter(ele => ele.curr === 1));
-	const [lootMaterialArr, setLookMaterialArr] = useState(props.loot.filter(ele => ele.curr === 0));
+	const [lootObj, setLootObj] = useState(props.loot);
 
+	// Updating loot opject's qty
+	// const updateLootQty = (keyName, qty) => {
+	// 	setLootObj({...lootObj, [`${keyName}`]: { ...lootObj[`${keyName}`], qty: qty }});
+	// };
+
+	// Remove the quest
 	const removeQuest = () => {
 		props.removeQuest(props.id);
 	};
@@ -63,22 +68,66 @@ const HeroQuestCard = props => {
 				</div>
 
 				{/* Loot */}
-				<div className={`flex-full flex-col flex-ai-fs w100 heroQuestCard__lootContainer`}>
-					<div className={`flex-full flex-col heroQuestCard__loot`}>
+				<div className={`flex-full flex-row flex-jc-fs w100 heroQuestCard__lootContainer`}>
+
+					{/* Currencies */}
+					<div className={`flex-full flex-col flex-ai-fs heroQuestCard__loot`}>
 						<p className={`flex-full heroQuestCard__loot--text`}>Currency</p>
-
-						{lootCurrencyArr.map((ele) => {
-							<SingleReward 
-								name={props.loot[0].name}
-								img_url={props.loot[0].img_url}
-								value={0}
-							/>
-						})}
-
-						{/* <img className={`heroQuestCard__loot--image`} src={props.loot[0].img_url} alt={props.loot[0].name} /> */}
+						<div className={`flex-full flex-row heroQuestCard__loot--currencies`}>
+							{lootObj && Object.keys(lootObj).map((loot) => {
+								// console.log(lootObj[loot]);
+								if (lootObj[loot].curr) {
+									return (
+										<SingleReward 
+											name={lootObj[loot].name}
+											img_url={lootObj[loot].img_url}
+											value={lootObj[loot].qty}
+											key={lootObj[loot].name}
+										/>
+									);
+								} else {
+									return null;
+								}
+							})}
+						</div>
 					</div>
+
+					{/* Loot */}
+					<div className={`flex-full flex-col flex-ai-fs heroQuestCard__loot`}>
+						<p className={`flex-full heroQuestCard__loot--text`}>Loot</p>
+						<div className={`flex-full flex-row heroQuestCard__loot--currencies`}>
+							{lootObj && Object.keys(lootObj).map((loot) => {
+								// console.log(lootObj[loot]);
+								if (!lootObj[loot].curr && lootObj[loot].qty >= 0) {
+									return (
+										<SingleReward 
+											name={lootObj[loot].name}
+											img_url={lootObj[loot].img_url}
+											value={lootObj[loot].qty}
+											key={lootObj[loot].name}
+										/>
+									);
+								} else {
+									return null;
+								}
+							})}
+						</div>
+					</div>
+
+
+					{/* <div onClick={() => {
+						setLootObj({...lootObj, [`Bronze`]: { ...lootObj[`Bronze`], qty: lootObj[`Bronze`].qty + 1 }})
+					}}>11111</div>
+
+					<div onClick={() => {
+						console.log(lootObj)
+						console.log(lootObj["Bronze"])
+					}}>22222</div> */}
+
+
 				</div>
 
+				{/* Progress bar */}
 				<QuestProgressBar
 					timeStarted={props.timeStarted}
 					timeFinished={props.timeFinished}
