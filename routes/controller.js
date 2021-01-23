@@ -41,6 +41,17 @@ router.get("/api/getMaterials/:uid", function (req, res) {
     );
 });
 
+// GET QUESTS
+router.get("/api/getQuests/:uid", function (req, res) {
+    orm.getQuests(
+        req.params.uid,
+        function (result) {
+			console.log("result", result)
+            res.json(result);
+        }
+    );
+});
+
 // UPDATE A SINGLE MATERIAL OR CURRENCY
 router.put("/api/updateMaterial/", function (req, res) {
     orm.updateMaterial(
@@ -48,6 +59,33 @@ router.put("/api/updateMaterial/", function (req, res) {
 		req.body.mat,
 		req.body.qty,
 		req.body.img_url,
+        function (result) {
+			console.log("result", result)
+            res.json(result);
+        }
+    );
+});
+
+// START QUEST
+router.put("/api/startQuest/", function (req, res) {
+    orm.startQuest(
+		req.body.uid,
+		req.body.questName,
+		req.body.isHeroQuest,
+		req.body.startTime,
+		req.body.endTime,
+		req.body.lootObj,
+        function (result) {
+			console.log("result", result)
+            res.json(result);
+        }
+    );
+});
+
+// START QUEST
+router.delete("/api/removeQuest/:id", function (req, res) {
+    orm.removeQuest(
+		req.params.id,
         function (result) {
 			console.log("result", result)
             res.json(result);

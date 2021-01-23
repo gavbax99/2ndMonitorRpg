@@ -6,14 +6,3 @@ export const updateMaterial = (uid, mat, qty, img_url) => {
 		console.log(res);
 	});
 };
-
-// export const getCurrencies = (uid) => {
-// 	axios.get("/api/updateMaterial/", {uid: uid})
-// 	.then((res) => {
-// 		console.log(res);
-// 	});
-// };
-
-export const addSilver = () => {
-	
-}

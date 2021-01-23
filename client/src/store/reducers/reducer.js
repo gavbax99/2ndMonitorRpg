@@ -5,6 +5,8 @@ const initState = {
 	Mythril: 0,
 	currencyObj: {},
 	materialObj: {},
+	heroQuestObj: [],
+	otherQuestObj: [],
 	page: "Loading",
 };
 
@@ -27,6 +29,12 @@ const reducer = (state = initState, action) => {
 		case "UPDATE_ALL_MATERIALS":
 			return Object.assign({}, state, {
 				materialObj: action.materials
+			});
+
+		// update the page
+		case "UPDATE_HERO_QUEST":
+			return Object.assign({}, state, {
+				heroQuestObj: action.quest
 			});
 
 		// update the page

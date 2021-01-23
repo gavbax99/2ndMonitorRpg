@@ -7,7 +7,7 @@
 
 .homeScreen__card-container {
 	width: 100%;
-	padding: 2rem;
+	/* padding: 2rem; */
 	background-color: rgb(240, 240, 240);
 	min-height: 100vh;
 }

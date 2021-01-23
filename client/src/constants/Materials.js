@@ -6,6 +6,7 @@ export const Materials = {
 		img_url: "./images/materials/curr_bronze.jpg",
 		color: "#674d56",
 		tick: 2,
+		p: 100 - ((1 / 60) * 100),
 	},
 	silver: {
 		name: "Silver",
@@ -14,6 +15,7 @@ export const Materials = {
 		img_url: "./images/materials/curr_silver.jpg",
 		color: "#969696",
 		tick: 2,
+		p: 100 - ((1 / 120) * 100),
 	},
 	gold: {
 		name: "Gold",
@@ -22,6 +24,7 @@ export const Materials = {
 		img_url: "./images/materials/curr_gold.jpg",
 		color: "#ffe946",
 		tick: 2,
+		p: 100 - ((1 / 240) * 100),
 	},
 	mythril: {
 		name: "Mythril",
@@ -30,6 +33,7 @@ export const Materials = {
 		img_url: "./images/materials/curr_mythril.jpg",
 		color: "#fc5044",
 		tick: 2,
+		p: 100 - ((1 / 1080) * 100),
 	},
 
 	lollipop: {
@@ -38,6 +42,7 @@ export const Materials = {
 		img_url: "./images/materials/mat_pop.jpg",
 		color: "#ffe946",
 		tick: 6,
+		p: 100 - ((1 / 100) * 100),
 	},
 	gun: {
 		name: "Gun",
@@ -45,6 +50,7 @@ export const Materials = {
 		img_url: "./images/materials/mat_gun.jpg",
 		color: "#ffe946",
 		tick: 6,
+		p: 100 - ((1 / 100) * 100),
 	},
 	axe: {
 		name: "Axe",
@@ -52,6 +58,7 @@ export const Materials = {
 		img_url: "./images/materials/mat_axe.jpg",
 		color: "#ffe946",
 		tick: 6,
+		p: 100 - ((1 / 100) * 100),
 	},
 	ship: {
 		name: "Spaceship",
@@ -59,6 +66,7 @@ export const Materials = {
 		img_url: "./images/materials/mat_ship.jpg",
 		color: "#ffe946",
 		tick: 6,
+		p: 100 - ((1 / 100) * 100),
 	},
 
 

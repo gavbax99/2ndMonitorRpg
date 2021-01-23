@@ -1,6 +1,5 @@
 // React
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './Sidebar.css';
 
 // Redux
@@ -45,14 +44,11 @@ const Sidebar = props => {
 
 	// Redux
 	const dispatch = useDispatch();
-	const currencyBronze = useSelector(state => state.reducer.Bronze);
-	const currencySilver = useSelector(state => state.reducer.Silver);
-	const currencyGold = useSelector(state => state.reducer.Gold);
-	const currencyMythril = useSelector(state => state.reducer.Mythril);
 
-	// Currency
+	// State
 	const currencyObj = useSelector(state => state.reducer.currencyObj);
 	const materialObj = useSelector(state => state.reducer.materialObj);
+	const heroQuestObj = useSelector(state => state.reducer.heroQuestObj);
 	const [toggleCurrency, setToggleCurrency] = useState(true);
 	const [toggleMaterials, setToggleMaterials] = useState(true);
 
@@ -101,31 +97,19 @@ const Sidebar = props => {
 					<p>Currency</p>
 				</div>
 				{toggleCurrency ?
-					<div className={`flex-full flex-row w100 sidebar__currency--container`}>
-						<Currency 
-							img_url={Materials.bronze.img_url}
-							name="Bronze"
-							value={currencyBronze}
-						/>
-						<Currency 
-							img_url={Materials.silver.img_url}
-							name="Silver"
-							value={currencySilver}
-						/>
-						<Currency 
-							img_url={Materials.gold.img_url}
-							name="Gold"
-							value={currencyGold}
-						/>
-						<Currency 
-							img_url={Materials.mythril.img_url}
-							name="Mythril"
-							value={currencyMythril}
-						/>
+					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
+						{currencyObj && Object.keys(currencyObj).map(currency => {
+							return (
+								<Currency 
+									img_url={currencyObj[currency].img_url}
+									name={currencyObj[currency].mat}
+									value={currencyObj[currency].qty}
+									key={currencyObj[currency].id}
+								/>
+							)
+						})}
 					</div>
-					:
-					null
-				}
+				: null }
 
 				{/* Materials */}
 				<div
@@ -138,7 +122,7 @@ const Sidebar = props => {
 					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
 
 						{/* <div style={{height: "20px", width: "100%"}} onClick={() => {
-							console.log(currencyBronze);
+							console.log(heroQuestObj);
 						}}>X</div> */}
 
 						{materialObj && Object.keys(materialObj).map(mat => {
@@ -153,9 +137,7 @@ const Sidebar = props => {
 						})}
 
 					</div>
-					:
-					null
-				}
+				: null }
 			</div>
 
 		</div>

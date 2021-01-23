@@ -67,6 +67,36 @@ var orm = {
         });
     },
 
+    // Grab all quests
+    getQuests: (uid, cb) => {
+		var queryString = `SELECT * FROM react_rpg_db.quests WHERE uid = ${uid};`;
+
+        connection.query(queryString, function (err, res) {
+            if (err) throw err;
+            cb(res);
+        });
+	},
+	
+	// Initiates a quest
+	startQuest: (uid, questName, isHeroQuest, startTime, endTime, lootObj, cb) => {
+		var queryString = `INSERT INTO react_rpg_db.quests (uid, questName, isHeroQuest, startTime, endTime, lootObj) VALUES (${uid}, "${questName}", ${isHeroQuest}, ${startTime}, ${endTime}, "${lootObj}");`;
+
+        connection.query(queryString, function (err, res) {
+            if (err) throw err;
+            cb(res);
+        });
+	},
+
+	// Removes a quest
+	removeQuest: (id, cb) => {
+		var queryString = `DELETE FROM react_rpg_db.quests WHERE id = ${id};`;
+
+		connection.query(queryString, function (err, res) {
+            if (err) throw err;
+            cb(res);
+        });
+	},
+
     // Update single material
     updateMaterial: (uid, mat, qty, img_url, cb) => {
 		var queryString = `INSERT INTO react_rpg_db.materials (uid, mat, qty, img_url) VALUES (${uid}, "${mat}", ${qty}, "${img_url}") ON DUPLICATE KEY UPDATE qty = qty + ${qty};`;

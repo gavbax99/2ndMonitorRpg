@@ -6,26 +6,30 @@ import './QuestProgressBar.css';
 const QuestProgressBar = props => {
 
 	// State
-	const [expTime, setExpTime] = useState(Date.now() + (1000 * props.questDuration));
-	const [startTime, setStartTime] = useState(Date.now());
+	const [startTime, setStartTime] = useState(props.timeStarted);
+	const [expTime, setExpTime] = useState(props.timeFinished);
+	const [timeNow, setTimeNow] = useState(props.timeNow);
 	const [percent, setPercent] = useState(0);
 
-	// Initiate 1s GAME LOOP
+	// Initiate loop
 	useEffect(() => {
-		const interval = setInterval(() => {
-			const maxTime = expTime - startTime;
-			const currentPercent = ((maxTime-(expTime-Date.now()))/maxTime) * 100;
-			currentPercent < 100 ? setPercent(currentPercent) : setPercent(100);
-
-			// Clear interval after 100%
-			if (currentPercent >= 100) {
-				clearInterval(interval);
-			};
-			}, 1000);
+		const interval = setInterval(() => { loop(interval) }, 1000);
+		loop(interval);
 		return () => clearInterval(interval);
 	}, []);
 
-	// GAME LOOP
+	const loop = (interval) => {
+		const maxTime = expTime - startTime;
+		const currentPercent = ((maxTime-(expTime-Date.now()))/maxTime) * 100;
+		currentPercent < 100 ? setPercent(currentPercent) : setPercent(100);
+
+		// Clear interval after 100%
+		if (currentPercent >= 100) {
+			clearInterval(interval);
+		};
+	};
+
+	// GAME LOOP LOGIC
 	useEffect(() => {
 		// Win condition
 		if (percent === 100) {
@@ -71,11 +75,9 @@ const QuestProgressBar = props => {
 
 				{/* Percent complete */}
 				<p className={`flex-full questProgressBar__percent`}>{parseFloat(percent).toFixed(2)}%</p>
-				
 			</div>
-			
 		</div>
-	)
+	);
 };
 
 export default QuestProgressBar;
