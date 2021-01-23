@@ -7,7 +7,7 @@ import './ProgressBar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSinglecurrency } from '../../store/actions/actions';
 
-import { updateMaterial } from "../../constants/functions";
+import { updateMaterial } from "../../constants/Functions";
 import Materials from '../../constants/Materials';
 
 // COMPONENT: tick

@@ -54,6 +54,8 @@ const Sidebar = props => {
 
 	// const [nav, setNav] = useState(0);
 
+	console.log("test", currencyObj)
+
 	return (
 		<div className={`flex-full flex-col sidebar`}>
 			{/* Nav */}

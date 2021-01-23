@@ -26,34 +26,38 @@
 
 .heroQuestCard__header {
 	position: relative;
-	justify-content: flex-start;
-	padding: 0 1rem 1rem 0;
+	justify-content: space-between;
+	margin-bottom: 1rem;
 }
 
 .heroQuestCard__header--title {
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-weight: 700;
 	padding-right: 1.5rem;
 }
 
 .heroQuestCard__buttons {
-	position: absolute;
-	top: -1.25rem;
-	right: -1.25rem;
-	background: rgb(240, 240, 240);
-	border-radius: 0 0.5rem 0 0.5rem;
+	/* position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 0 0.5rem 0 0.5rem; */
 }
 
 .heroQuestCard__button--info {
-	border-radius: 0 0 0 0.5rem;
+	margin-right: 0.5rem;
+	width: 26px;
+	height: 26px;
+	border-radius: 20px;
 	background-color: rgb(214, 214, 214);
-	padding: 0.9rem 1.25rem;
+	cursor: pointer;
 }
 
 .heroQuestCard__button--x {
-	border-radius: 0 0.5rem 0 0;
-	background-color: rgb(174, 174, 174);
-	padding: 0.9rem 1.25rem;
+	width: 26px;
+	height: 26px;
+	border-radius: 20px;
+	background-color: rgb(214, 214, 214);
+	cursor: pointer;
 }
 
 .heroQuestCard__lootContainer {

@@ -1,5 +1,3 @@
-// I take in time and use a game loop to display percent or roll for loot
-
 // React and CSS
 import React, { useState, useEffect } from 'react';
 import './QuestProgressBar.css';
@@ -24,9 +22,9 @@ const Tick = props => {
 const QuestProgressBar = props => {
 
 	// State
+	const [enabled, setEnabled] = useState(false);
 	const [startTime, setStartTime] = useState(props.timeStarted);
 	const [expTime, setExpTime] = useState(props.timeFinished);
-	// const [timeNow, setTimeNow] = useState(props.timeNow);
 	const [lootObj, setLootObj] = useState(props.loot);
 	const [percent, setPercent] = useState(0);
 	const [ticks, setTicks] = useState([]);
@@ -35,6 +33,7 @@ const QuestProgressBar = props => {
 	useEffect(() => {
 		const interval = setInterval(() => { loop(interval) }, 1000);
 		loop(interval);
+		setEnabled(true);
 		return () => clearInterval(interval);
 	}, []);
 
@@ -51,22 +50,23 @@ const QuestProgressBar = props => {
 
 	// GAME LOOP LOGIC
 	useEffect(() => {
-		// Win condition
-		if (percent === 100) {
-
-			return;
-		};
-
-		// Loot roll
-		rollForLoot();
+		if (percent >= 100) {
+			// Win condition
 
 
-		// Treasure
-		
+		} else if (enabled) {
+			// Loot roll
+			rollForLoot();
+
+
+			// Treasure
+		};	
 	}, [percent]);
 
 	// Loot roll
 	const rollForLoot = () => {
+		if (percent >= 100) return;
+
 		// > [{name: "name", qty: qty}, {...}]
 		let lootArr = [];
 		let tickArr = [...ticks];
@@ -75,7 +75,7 @@ const QuestProgressBar = props => {
 		Object.keys(lootObj).forEach(loot => {
 			const rng = Math.random() * 100;
 			if (rng > lootObj[loot].p) {
-				lootArr = [...lootArr, { name: lootObj[loot].name, qty: 1 }];
+				lootArr = [...lootArr, { name: lootObj[loot].name, qty: 1, img_url: lootObj[loot].img_url, curr: lootObj[loot].curr }];
 				tickArr = [...tickArr, { percent: percent, width: lootObj[loot].tick, top: lootObj[loot].tickTop, color: lootObj[loot].color }];
 			};
 		});
