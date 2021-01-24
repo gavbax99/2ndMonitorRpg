@@ -4,25 +4,52 @@ import './Sidebar.css';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-// import { navigate } from '../../store/actions/actions';
+import { navigate, updateAllStats } from '../../store/actions/actions';
 
 // Tools
 import Materials from "../../constants/Materials";
 
+// Components
+import SidebarItem from "./SidebarItem";
+
 const Currency = props => {
+	const [hover, setHover] = useState(false);
+
 	return (
-		<div className={`flex-full flex-col sidebar__currency--single`}>
+		<div className={`flex-full flex-col sidebar__currency--single`}
+			onMouseEnter={() => { setHover(true) }}
+			onMouseLeave={() => { setHover(false) }}>
 			<img src={props.img_url} alt={props.name} className="sidebar__currency--image"/>
 			<p className="sidebar__currecncy--number">{props.value}</p>
+
+			<div className={`flex-full sidebar__currency--hidden`}
+				style={{ display: hover ? "block" : "none" }}>
+				<div className={`sidebar__currency--triangle`}></div>
+				<p className={`flex-full`}>
+					{props.name}
+				</p>
+			</div>
 		</div>
 	);
 };
 
 const Material = props => {
+	const [hover, setHover] = useState(false);
+	
 	return (
-		<div className={`flex-full flex-col sidebar__materials--single`}>
+		<div className={`flex-full flex-col sidebar__materials--single`}
+			onMouseEnter={() => { setHover(true) }}
+			onMouseLeave={() => { setHover(false) }}>
 			<img src={props.img_url} alt={props.name} className="sidebar__currency--image"/>
 			<p className="sidebar__materials--number">{props.value}</p>
+
+			<div className={`flex-full sidebar__currency--hidden`}
+				style={{ display: hover ? "block" : "none" }}>
+				<div className={`sidebar__currency--triangle`}></div>
+				<p className={`flex-full`}>
+					{props.name}
+				</p>
+			</div>
 		</div>
 	);
 };
@@ -49,12 +76,16 @@ const Sidebar = props => {
 	const currencyObj = useSelector(state => state.reducer.currencyObj);
 	const materialObj = useSelector(state => state.reducer.materialObj);
 	const heroQuestObj = useSelector(state => state.reducer.heroQuestObj);
+	const itemsObj = useSelector(state => state.reducer.itemsObj);
+	const statsObj = useSelector(state => state.reducer.statsObj);
+
 	const [toggleCurrency, setToggleCurrency] = useState(true);
 	const [toggleMaterials, setToggleMaterials] = useState(true);
+	const [toggleAvatar, setToggleAvatar] = useState(true);
 
 	// const [nav, setNav] = useState(0);
 
-	console.log("test", currencyObj)
+	console.log("stats", statsObj);
 
 	return (
 		<div className={`flex-full flex-col sidebar`}>
@@ -64,7 +95,6 @@ const Sidebar = props => {
 					style={{ backgroundColor: nav === 0 ? "rgb(240, 240, 240)" : "rgb(167, 160, 160)" }}
 					onClick={() => { 
 						setNav(0);
-						dispatch(navigate("Home"));
 					}}>
 					O
 				</div>
@@ -72,24 +102,49 @@ const Sidebar = props => {
 					style={{ backgroundColor: nav === 1 ? "rgb(240, 240, 240)" : "rgb(167, 160, 160)" }}
 					onClick={() => { 
 						setNav(1);
-						dispatch(navigate("Test"));
 					}}>
 					O
 				</div>
 				<div className={`flex-full`}
 					style={{ backgroundColor: nav === 2 ? "rgb(240, 240, 240)" : "rgb(167, 160, 160)" }}
 					onClick={() => { 
-
+						setNav(2);
 					}}>
 					O
 				</div>
 			</nav> */}
 
+
 			{/* Content */}
 			<div className={`flex-full flex-col w100 sidebar__content`}>
 				<p className="sidebar__username">MEGABUTT</p>
 
+				{/* Level and icon */}
 				<Level />
+
+				{/* Weapon / Trinket */}
+				<div
+					onClick={() => { setToggleAvatar(!toggleAvatar) }}
+					className={`flex-full flex-row w100 sidebar__dropdown--title`}>
+					<p>x</p>
+					<p>Avatar</p>
+				</div>
+				{toggleAvatar &&
+					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
+						{itemsObj && Object.keys(itemsObj).map(item => {
+							return (
+								<SidebarItem 
+									name={itemsObj[item].name}
+									img_url={itemsObj[item].img_url}
+									level={itemsObj[item].level}
+									exp={itemsObj[item].exp}
+									stats={[itemsObj[item].speed, itemsObj[item].power, itemsObj[item].luck, itemsObj[item].wisdom]}
+									key={itemsObj[item].name}
+								/>
+							);
+						})}
+					</div>
+				}
 
 				{/* Currency */}
 				<div
@@ -106,7 +161,7 @@ const Sidebar = props => {
 									img_url={currencyObj[currency].img_url}
 									name={currencyObj[currency].mat}
 									value={currencyObj[currency].qty}
-									key={currencyObj[currency].id}
+									key={currencyObj[currency].mat}
 								/>
 							)
 						})}
@@ -122,24 +177,28 @@ const Sidebar = props => {
 				</div>
 				{toggleMaterials ?
 					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
-
-						{/* <div style={{height: "20px", width: "100%"}} onClick={() => {
-							console.log(heroQuestObj);
-						}}>X</div> */}
-
 						{materialObj && Object.keys(materialObj).map(mat => {
 							return (
 								<Material 
 									img_url={materialObj[mat].img_url}
 									name={materialObj[mat].mat}
 									value={materialObj[mat].qty}
-									key={materialObj[mat].id}
+									key={materialObj[mat].mat}
 								/>
 							)
 						})}
-
 					</div>
 				: null }
+						
+				<div style={{height: "20px", width: "100%"}} onClick={() => {
+					dispatch(updateAllStats({
+						speed: 1000,
+						power: 0,
+						luck: 0,
+						wisdom: 0
+					}));
+				}}>X</div>
+
 			</div>
 
 		</div>

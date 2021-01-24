@@ -46,6 +46,8 @@ const HeroQuestCard = props => {
 	const currencyObj = useSelector(state => state.reducer.currencyObj);
 	const materialObj = useSelector(state => state.reducer.materialObj);
 
+	// console.log(materialObj);
+
 	// State
 	const [lootObj, setLootObj] = useState(props.loot);
 
@@ -62,9 +64,19 @@ const HeroQuestCard = props => {
 
 			// Update the loot's quantity in redux
 			if (loot.curr) {
-				newCurrencyObj = {...newCurrencyObj, [`${loot.name}`]: {...newCurrencyObj[`${loot.name}`], qty: newCurrencyObj[`${loot.name}`].qty + loot.qty}};
+				// Currency: if already owned, else push new
+				if (newCurrencyObj[loot.name]) {
+					newCurrencyObj = {...newCurrencyObj, [`${loot.name}`]: {...newCurrencyObj[`${loot.name}`], qty: newCurrencyObj[`${loot.name}`].qty + loot.qty}};
+				} else {
+					newCurrencyObj = {...newCurrencyObj, [`${loot.name}`]: {name: `${loot.name}`, qty: loot.qty, img_url: `${loot.img_url}`, curr: true}};
+				}
 			} else {
-				newMaterialObj = {...newMaterialObj, [`${loot.name}`]: {...newMaterialObj[`${loot.name}`], qty: newMaterialObj[`${loot.name}`].qty + loot.qty}};
+				// Materials: if already owned, else push new
+				if (newMaterialObj[loot.name]) {
+					newMaterialObj = {...newMaterialObj, [`${loot.name}`]: {...newMaterialObj[`${loot.name}`], qty: newMaterialObj[`${loot.name}`].qty + loot.qty}};
+				} else {
+					newMaterialObj = {...newMaterialObj, [`${loot.name}`]: {name: `${loot.name}`, qty: loot.qty, img_url: `${loot.img_url}`}};
+				}
 			}
 
 			// Update DB
@@ -78,24 +90,30 @@ const HeroQuestCard = props => {
 
 	// When they click complete quest
 	const completeQuest = () => {
-		// Update local loot state and redux state
 		let newCurrencyObj = {...currencyObj};
 		let newMaterialObj = {...materialObj};
 
 		props.winLoot.forEach((loot => {
 			// Update the loot's quantity in redux
 			if (loot.mat.curr) {
-				newCurrencyObj = {...newCurrencyObj, [`${loot.mat.name}`]: {...newCurrencyObj[`${loot.mat.name}`], qty: newCurrencyObj[`${loot.mat.name}`].qty + loot.qty}};
+				// Currency: if already owned, else push new
+				if (newCurrencyObj[loot.mat.name]) {
+					newCurrencyObj = {...newCurrencyObj, [`${loot.mat.name}`]: {...newCurrencyObj[`${loot.mat.name}`], qty: newCurrencyObj[`${loot.mat.name}`].qty + loot.qty}};
+				} else {
+					newCurrencyObj = {...newCurrencyObj, [`${loot.mat.name}`]: {name: `${loot.mat.name}`, qty: loot.qty, img_url: `${loot.mat.img_url}`, curr: true}};
+				}
 			} else {
-				newMaterialObj = {...newMaterialObj, [`${loot.mat.name}`]: {...newMaterialObj[`${loot.mat.name}`], qty: newMaterialObj[`${loot.mat.name}`].qty + loot.qty}};
+				// Materials: if already owned, else push new
+				if (newMaterialObj[loot.mat.name]) {
+					newMaterialObj = {...newMaterialObj, [`${loot.mat.name}`]: {...newMaterialObj[`${loot.mat.name}`], qty: newMaterialObj[`${loot.mat.name}`].qty + loot.qty}};
+				} else {
+					newMaterialObj = {...newMaterialObj, [`${loot.mat.name}`]: {name: `${loot.mat.name}`, qty: loot.qty, img_url: `${loot.mat.img_url}`}};
+				}
 			}
 
 			// Update DB
 			updateMaterial(1, loot.mat.name, loot.qty, loot.mat.img_url);
 		}));
-
-		console.log("obj", currencyObj)
-		console.log("obj", newCurrencyObj)
 
 		dispatch(updateAllCurrencies(newCurrencyObj));
 		dispatch(updateAllMaterials(newMaterialObj));
@@ -144,7 +162,6 @@ const HeroQuestCard = props => {
 						<p className={`flex-full heroQuestCard__loot--text`}>Currency</p>
 						<div className={`flex-full flex-row heroQuestCard__loot--currencies`}>
 							{lootObj && Object.keys(lootObj).map((loot) => {
-								// console.log(lootObj[loot]);
 								if (lootObj[loot].curr) {
 									return (
 										<SingleReward 

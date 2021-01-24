@@ -52,6 +52,18 @@ router.get("/api/getQuests/:uid", function (req, res) {
     );
 });
 
+
+// GET ITEMS
+router.get("/api/getItems/:uid", function (req, res) {
+    orm.getItems(
+        req.params.uid,
+        function (result) {
+			console.log("result", result)
+            res.json(result);
+        }
+    );
+});
+
 // UPDATE A SINGLE MATERIAL OR CURRENCY
 router.put("/api/updateMaterial/", function (req, res) {
     orm.updateMaterial(

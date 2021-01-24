@@ -1,23 +1,18 @@
 const initState = {
-	Bronze: 0,
-	Silver: 0,
-	Gold: 0,
-	Mythril: 0,
 	currencyObj: {},
 	materialObj: {},
+
 	heroQuestObj: [],
-	otherQuestObj: [],
+	// otherQuestObj: {},
+
+	itemsObj: {},
+	statsObj: {},
+
 	page: "Loading",
 };
 
 const reducer = (state = initState, action) => {
 	switch (action.type) {
-		
-		// Add single currency
-		case "ADD_SINGLE_CURRENCY":
-			return Object.assign({}, state, {
-				[action.currency]: state[action.currency] + action.qty,
-			});
 
 		// update the page
 		case "UPDATE_ALL_CURRENCIES":
@@ -29,6 +24,18 @@ const reducer = (state = initState, action) => {
 		case "UPDATE_ALL_MATERIALS":
 			return Object.assign({}, state, {
 				materialObj: action.materials
+			});
+
+		// update the page
+		case "UPDATE_ALL_ITEMS":
+			return Object.assign({}, state, {
+				itemsObj: action.items
+			});
+
+		// update the page
+		case "UPDATE_ALL_STATS":
+			return Object.assign({}, state, {
+				statsObj: action.stats
 			});
 
 		// update the page

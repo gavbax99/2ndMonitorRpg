@@ -7,6 +7,7 @@
 	background-color: rgb(206, 195, 195);
 	justify-content: flex-start;
 	/* overflow-y: scroll; */
+	z-index: 9999999;
 }
 
 .sidebar__nav {
@@ -48,6 +49,7 @@
 }
 
 .sidebar__currency--single {
+	position: relative;
 	flex: 1 0 25%;
 	margin-bottom: 1rem;
 }
@@ -69,6 +71,7 @@
 }
 
 .sidebar__materials--single {
+	position: relative;
 	width: 25%;
 	margin-bottom: 1rem;
 }
@@ -85,6 +88,29 @@
 	text-align: center;
 	font-size: 0.75rem;
 }
+
+.sidebar__currency--hidden {
+	position: absolute;
+	left: 41px;
+	top: -12px;
+	padding: 1rem;
+	background-color: rgb(19, 1, 19);
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	z-index: 9999;
+}
+
+.sidebar__currency--triangle {
+	position: absolute;
+	left: -5px;
+	top: calc(50% - 7px);
+	width: 14px;
+	height: 14px;
+	background-color: rgb(19, 1, 19);
+	transform:  rotate(45deg);
+}
+
 
 /* Level */
 
@@ -127,4 +153,93 @@
 .sidebar__level--progressBarFill {
 	height: 6px;
 	background-color: red;
+}
+
+/* Item */
+
+.sidebarItem {
+	position: relative;
+	min-height: 70px;
+	max-height: 70px;
+	border: 1px solid black;
+	margin-bottom: 1rem;
+	border-radius: 4px;
+	background-size: cover;
+    background-position: 50%;
+}
+
+.sidebarItem__info {
+	padding: 0.4rem;
+}
+
+.sidebarItem__name {
+	font-size: 1rem;
+	color: #000;
+}
+
+.sidebarItem__level {
+	max-width: 30px;
+	min-width: 30px;
+	font-size: 1rem;
+	font-weight: 700;
+	color: #000;
+	text-align: right;
+}
+
+.sidebarItem__progressContainer {
+	position: relative;
+	height: 4px;
+	background-color: #353535;
+}
+
+.sidebarItem__fill {
+	height: 4px;
+}
+
+.sidebarItem__hidden {
+	position: absolute;
+	top: -14px;
+	right: 0;
+	max-width: 260px;
+	min-width: 260px;
+	padding: 1rem;
+	transform: translate(calc(100% + 9px), 0);
+	background-color: rgb(19, 1, 19);
+	color: #fff;
+	text-align: left;
+	border-radius: 3px;
+}
+
+.sidebarItem__hidden--triangle {
+	position: absolute;
+	left: -5px;
+	top: 41px;
+	width: 14px;
+	height: 14px;
+	background-color: rgb(19, 1, 19);
+	transform:  rotate(45deg);
+}
+
+.sidebarItem__hidden--infoGroup {
+	margin-bottom: 2rem;
+}
+
+.sidebarItem__hidden--title {
+	font-size: 1.5rem;
+}
+
+.sidebarItem__stat {
+	margin-bottom: 0.5rem;
+}
+
+.sidebarItem__stat:last-child {
+	margin-bottom: 0;
+}
+
+.sidebarItem__stat--name {
+
+}
+
+.sidebarItem__stat--value {
+
 }

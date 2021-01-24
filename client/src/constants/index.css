@@ -23,5 +23,6 @@ code {
 
 .flex-ai-fs { align-items: flex-start; }
 .flex-jc-fs { justify-content: flex-start; }
+.flex-jc-sb { justify-content: space-between; }
 
 .w100 { width: 100%; }

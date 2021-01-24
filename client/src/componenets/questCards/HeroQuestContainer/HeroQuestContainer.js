@@ -18,6 +18,7 @@ const HeroQuestContainer = props => {
 	// Redux
 	const dispatch = useDispatch();
 	const heroQuestObj = useSelector(state => state.reducer.heroQuestObj);
+	const statsObj = useSelector(state => state.reducer.statsObj);
 
 	// State
 	const [questCompleted, setQuestCompleted] = useState(false);
@@ -28,15 +29,26 @@ const HeroQuestContainer = props => {
 	const [timeFinished, setTimeFinished] = useState();
 	const [timeNow, setTimeNow] = useState(Date.now());
 
+	const calculateEndTime = (newQuestDuration) => {
+		// Time is fixed 75% of the duration with 25% extra duration that lowers with item speed 
+		const now = Date.now();
+		const endTime = now + (1000 * newQuestDuration);
+		const timeDiff = endTime - now;
+		const modifiedEndTime = (timeDiff * 0.75) + ((timeDiff * 0.25) * (1 - statsObj.speed/1000));
+		return now + modifiedEndTime;
+	};
+
 	// Give quest
 	const giveQuest = async (newQuestName, newQuestDuration) => {
 		const now = Date.now();
+		const endTime = calculateEndTime(newQuestDuration);
+
 		axios.put("/api/startQuest", {
 			uid: 1,
 			questName: newQuestName,
 			isHeroQuest: true,
 			startTime: now.toString(),
-			endTime: (now + (1000 * newQuestDuration)).toString(),
+			endTime: endTime.toString(),
 			lootObj: JSON.stringify([1,2])
 		}).then(res => {
 			const resData = JSON.parse(res.config.data);
@@ -54,7 +66,7 @@ const HeroQuestContainer = props => {
 
 	// Remove quest
 	const removeQuest = async (id) => {
-		console.log(id);
+		// console.log(id);
 		axios.delete(`/api/removeQuest/${id}`).then((res) => {
 			dispatch(updateHeroQuest([]));
 			setHasQuest(false);
@@ -92,13 +104,11 @@ const HeroQuestContainer = props => {
 						[Materials.ship.name]: Materials.ship,
 					}}
 					winLoot={[
-						{mat: Materials.silver, qty: 20},
-						{mat: Materials.gold, qty: 5},
-						{mat: Materials.gun, qty: 1},
+						{mat: Materials.axe, qty: 1},
 					]}
 				/>
 			: 
-				<div onClick={() => { giveQuest("Test", 10) }}>
+				<div onClick={() => { giveQuest("Test", 20) }}>
 					Give quest
 				</div>
 			}

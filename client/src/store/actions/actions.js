@@ -1,16 +1,9 @@
-export const ADD_SINGLE_CURRENCY = "ADD_SINGLE_CURRENCY";
 export const UPDATE_ALL_CURRENCIES = "UPDATE_ALL_CURRENCIES";
 export const UPDATE_ALL_MATERIALS = "UPDATE_ALL_MATERIALS";
+export const UPDATE_ALL_ITEMS = "UPDATE_ALL_ITEMS";
+export const UPDATE_ALL_STATS = "UPDATE_ALL_STATS";
 export const UPDATE_HERO_QUEST = "UPDATE_HERO_QUEST";
 export const NAVIGATE = "NAVIGATE";
-
-export const addSinglecurrency = (currency, qty) => {
-	return {
-		type: ADD_SINGLE_CURRENCY,
-		currency: currency,
-		qty: qty,
-	};
-};
 
 export const updateAllCurrencies = (currencies) => {
 	return {
@@ -23,6 +16,20 @@ export const updateAllMaterials = (materials) => {
 	return {
 		type: UPDATE_ALL_MATERIALS,
 		materials: materials
+	};
+};
+
+export const updateAllItems = (items) => {
+	return {
+		type: UPDATE_ALL_ITEMS,
+		items: items
+	};
+};
+
+export const updateAllStats = (stats) => {
+	return {
+		type: UPDATE_ALL_STATS,
+		stats: stats
 	};
 };
 

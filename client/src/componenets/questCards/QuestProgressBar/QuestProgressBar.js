@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import './QuestProgressBar.css';
 
+// Redux
+import { useSelector } from 'react-redux';
+
 // COMPONENT: tick
 const Tick = props => {
 	return (
@@ -22,6 +25,8 @@ const Tick = props => {
 const QuestProgressBar = props => {
 
 	// State
+	const statsObj = useSelector(state => state.reducer.statsObj);
+
 	const [enabled, setEnabled] = useState(false);
 	const [startTime, setStartTime] = useState(props.timeStarted);
 	const [expTime, setExpTime] = useState(props.timeFinished);
@@ -31,7 +36,10 @@ const QuestProgressBar = props => {
 
 	// Initiate loop
 	useEffect(() => {
-		const interval = setInterval(() => { loop(interval) }, 1000);
+		// Time is a fixed 750ms with 250ms extra that lowers with item speed. 1 speed = 0.25ms
+		const time = 750 + (250 * (1 - statsObj.speed/1000));
+
+		const interval = setInterval(() => { loop(interval) }, time);
 		loop(interval);
 		setEnabled(true);
 		return () => clearInterval(interval);
@@ -70,20 +78,20 @@ const QuestProgressBar = props => {
 
 		// > [{name: "name", qty: qty}, {...}]
 		let lootArr = [];
-		let tickArr = [...ticks];
+		let matArr = [...ticks];
 
 		// For each material, roll to see if won
 		Object.keys(lootObj).forEach(loot => {
 			const rng = Math.random() * 100;
 			if (rng > lootObj[loot].p) {
 				lootArr = [...lootArr, { name: lootObj[loot].name, qty: 1, img_url: lootObj[loot].img_url, curr: lootObj[loot].curr }];
-				tickArr = [...tickArr, { percent: percent, width: lootObj[loot].tick, top: lootObj[loot].tickTop, color: lootObj[loot].color }];
+				matArr = [...matArr, { percent: percent, width: lootObj[loot].tick, top: lootObj[loot].tickTop, color: lootObj[loot].color }];
 			};
 		});
 
 		// If anything won, update ticks and qty
 		if (lootArr.length > 0) {
-			setTicks(tickArr);
+			setTicks(matArr);
 			props.updateLootQty(lootArr);
 		};
 	};
