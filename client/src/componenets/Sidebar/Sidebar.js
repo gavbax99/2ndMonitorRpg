@@ -9,6 +9,7 @@ import { navigate, updateAllStats } from '../../store/actions/actions';
 // Tools
 import Materials from "../../constants/Materials";
 
+
 // Components
 import SidebarItem from "./SidebarItem";
 
@@ -25,7 +26,7 @@ const Currency = props => {
 			<div className={`flex-full sidebar__currency--hidden`}
 				style={{ display: hover ? "block" : "none" }}>
 				<div className={`sidebar__currency--triangle`}></div>
-				<p className={`flex-full`}>
+				<p className={`flex-full`} style={{whiteSpace: "nowrap"}}>
 					{props.name}
 				</p>
 			</div>
@@ -73,6 +74,7 @@ const Sidebar = props => {
 	const dispatch = useDispatch();
 
 	// State
+	const tokenObj = useSelector(state => state.reducer.tokenObj);
 	const currencyObj = useSelector(state => state.reducer.currencyObj);
 	const materialObj = useSelector(state => state.reducer.materialObj);
 	const heroQuestObj = useSelector(state => state.reducer.heroQuestObj);
@@ -127,7 +129,7 @@ const Sidebar = props => {
 					onClick={() => { setToggleAvatar(!toggleAvatar) }}
 					className={`flex-full flex-row w100 sidebar__dropdown--title`}>
 					<p>x</p>
-					<p>Avatar</p>
+					<p>Items</p>
 				</div>
 				{toggleAvatar &&
 					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
@@ -145,6 +147,28 @@ const Sidebar = props => {
 						})}
 					</div>
 				}
+
+				{/* Tokens */}
+				<div
+					onClick={() => { setToggleCurrency(!toggleCurrency) }}
+					className={`flex-full flex-row w100 sidebar__dropdown--title`}>
+					<p>x</p>
+					<p>Tokens</p>
+				</div>
+				{toggleCurrency ?
+					<div className={`flex-full flex-row w100 sidebar__materials--container`}>
+						{tokenObj && Object.keys(tokenObj).map(token => {
+							return (
+								<Currency 
+									img_url={tokenObj[token].img_url}
+									name={tokenObj[token].name}
+									value={tokenObj[token].qty}
+									key={tokenObj[token].name}
+								/>
+							)
+						})}
+					</div>
+				: null }
 
 				{/* Currency */}
 				<div
@@ -190,14 +214,14 @@ const Sidebar = props => {
 					</div>
 				: null }
 						
-				<div style={{height: "20px", width: "100%"}} onClick={() => {
+				{/* <div style={{height: "20px", width: "100%"}} onClick={() => {
 					dispatch(updateAllStats({
 						speed: 1000,
 						power: 0,
 						luck: 0,
 						wisdom: 0
 					}));
-				}}>X</div>
+				}}>X</div> */}
 
 			</div>
 

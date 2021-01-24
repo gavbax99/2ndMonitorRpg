@@ -64,6 +64,17 @@ router.get("/api/getItems/:uid", function (req, res) {
     );
 });
 
+// GET TOKENS
+router.get("/api/getTokens/:uid", function (req, res) {
+    orm.getTokens(
+        req.params.uid,
+        function (result) {
+			console.log("result", result)
+            res.json(result);
+        }
+    );
+});
+
 // UPDATE A SINGLE MATERIAL OR CURRENCY
 router.put("/api/updateMaterial/", function (req, res) {
     orm.updateMaterial(

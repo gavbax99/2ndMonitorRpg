@@ -12,7 +12,11 @@ import {
 	updateHeroQuest,
 	updateAllItems,
 	updateAllStats,
+	updateAllTokens,
  } from '../../store/actions/actions';
+
+ // Constants
+ import Tokens from "../../constants/Tokens";
 
 const LoadingScreen = props => {
 
@@ -24,8 +28,9 @@ const LoadingScreen = props => {
 			axios.all([
 				axios.get("/api/getMaterials/1"),
 				axios.get("/api/getQuests/1"),
-				axios.get("/api/getItems/1")
-			]).then(axios.spread((materialsRes, questsRes, itemsRes) => {
+				axios.get("/api/getItems/1"),
+				axios.get("/api/getTokens/1"),
+			]).then(axios.spread((materialsRes, questsRes, itemsRes, tokensRes) => {
 				// Currencies
 				let currencyObj = {};
 				materialsRes.data.filter(mat => mat.curr === 1).forEach(mat => {
@@ -55,6 +60,15 @@ const LoadingScreen = props => {
 				});
 				dispatch(updateAllItems(itemObj));
 				dispatch(updateAllStats({speed: speed, power: power, luck: luck, wisdom: wisdom}));
+
+				// Tokens
+				let tokenObj = {
+					gold: {name: Tokens.gold.name, qty: tokensRes.data[0].gold, img_url: Tokens.gold.img_url},
+					diamond: {name: Tokens.diamond.name, qty: tokensRes.data[0].diamond, img_url: Tokens.diamond.img_url},
+					ticket: {name: Tokens.ticket.name, qty: tokensRes.data[0].ticket, img_url: Tokens.ticket.img_url},
+					fastForward: {name: Tokens.fastForward.name, qty: tokensRes.data[0].fastForward, img_url: Tokens.fastForward.img_url},
+				};
+				dispatch(updateAllTokens(tokenObj));
 
 				// Quests
 				dispatch(updateHeroQuest(questsRes.data.filter(ele => ele.isHeroQuest === 1)));

@@ -162,10 +162,14 @@
 	min-height: 70px;
 	max-height: 70px;
 	border: 1px solid black;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 	border-radius: 4px;
 	background-size: cover;
     background-position: 50%;
+}
+
+.sidebarItem:last-child {
+	margin-bottom: 1rem;
 }
 
 .sidebarItem__info {

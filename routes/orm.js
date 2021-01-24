@@ -86,6 +86,16 @@ var orm = {
             cb(res);
         });
 	},
+
+    // Grab all items
+    getTokens: (uid, cb) => {
+		var queryString = `SELECT gold, diamond, ticket, fastForward FROM react_rpg_db.users WHERE uid = ${uid};`;
+
+        connection.query(queryString, function (err, res) {
+            if (err) throw err;
+            cb(res);
+        });
+	},
 	
 	// Initiates a quest
 	startQuest: (uid, questName, isHeroQuest, startTime, endTime, lootObj, cb) => {

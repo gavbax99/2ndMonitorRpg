@@ -16,9 +16,16 @@ CREATE TABLE users (
     uid int(10) NOT NULL,
 	username VARCHAR(14) NOT NULL,
     level int(4) NOT NULL DEFAULT 1,
+    exp int(10) NOT NULL DEFAULT 1,
+    gold int(6) NOT NULL DEFAULT 0,
+    diamond int(3) NOT NULL DEFAULT 0,
+    ticket int(3) NOT NULL DEFAULT 0,
+    fastForward int(3) NOT NULL DEFAULT 0,
     
     PRIMARY KEY (id)
 );
+
+INSERT INTO materials (uid, mat, qty, img_url) VALUES (1, "x", 5, "./") ON DUPLICATE KEY UPDATE qty = qty + 6;
 
 CREATE TABLE quests (
 	id INTEGER NOT NULL AUTO_INCREMENT,
@@ -41,17 +48,25 @@ CREATE TABLE items (
 	level INTEGER(3) NOT NULL DEFAULT 1,
     exp INTEGER(10) NOT NULL DEFAULT 1,
     
-    Speed INTEGER(5) NOT NULL DEFAULT 0,
-	Power INTEGER(5) NOT NULL DEFAULT 0,
-	Luck INTEGER(5) NOT NULL DEFAULT 0,
-	Wisdom INTEGER(5) NOT NULL DEFAULT 0,
+    speed INTEGER(5) NOT NULL DEFAULT 0,
+	power INTEGER(5) NOT NULL DEFAULT 0,
+	luck INTEGER(5) NOT NULL DEFAULT 0,
+	wisdom INTEGER(5) NOT NULL DEFAULT 0,
 
     PRIMARY KEY (id)
 );
 
 SELECT * FROM react_rpg_db.items;
 
+INSERT INTO react_rpg_db.items 
+(uid, name, type, img_url, level, exp, Speed, Power, Luck, Wisdom) 
+VALUES 
+(1, "Sword", "Sword", "./images/materials/curr_silver.jpg", 1, 1, 1, 1, 0, 0);
 
+INSERT INTO react_rpg_db.items 
+(uid, name, type, img_url, level, exp, Speed, Power, Luck, Wisdom) 
+VALUES 
+(1, "Trinket", "Trinket", "./images/materials/curr_bronze.jpg", 1, 1, 0, 0, 1, 1);
 
 
 

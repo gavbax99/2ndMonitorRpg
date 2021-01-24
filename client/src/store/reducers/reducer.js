@@ -1,4 +1,5 @@
 const initState = {
+	tokenObj: {},
 	currencyObj: {},
 	materialObj: {},
 
@@ -8,11 +9,18 @@ const initState = {
 	itemsObj: {},
 	statsObj: {},
 
+
 	page: "Loading",
 };
 
 const reducer = (state = initState, action) => {
 	switch (action.type) {
+
+		// update the page
+		case "UPDATE_ALL_TOKENS":
+			return Object.assign({}, state, {
+				tokenObj: action.tokens
+			});
 
 		// update the page
 		case "UPDATE_ALL_CURRENCIES":

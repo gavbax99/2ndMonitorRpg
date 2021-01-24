@@ -1,9 +1,17 @@
+export const UPDATE_ALL_TOKENS = "UPDATE_ALL_TOKENS";
 export const UPDATE_ALL_CURRENCIES = "UPDATE_ALL_CURRENCIES";
 export const UPDATE_ALL_MATERIALS = "UPDATE_ALL_MATERIALS";
 export const UPDATE_ALL_ITEMS = "UPDATE_ALL_ITEMS";
 export const UPDATE_ALL_STATS = "UPDATE_ALL_STATS";
 export const UPDATE_HERO_QUEST = "UPDATE_HERO_QUEST";
 export const NAVIGATE = "NAVIGATE";
+
+export const updateAllTokens = (tokens) => {
+	return {
+		type: UPDATE_ALL_TOKENS,
+		tokens: tokens
+	}
+}
 
 export const updateAllCurrencies = (currencies) => {
 	return {
