@@ -25,7 +25,8 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 
-INSERT INTO materials (uid, mat, qty, img_url) VALUES (1, "x", 5, "./") ON DUPLICATE KEY UPDATE qty = qty + 6;
+SELECT * FROM react_rpg_db.users;
+INSERT INTO users (uid, username) VALUES (1, "MEGABUTT");
 
 CREATE TABLE quests (
 	id INTEGER NOT NULL AUTO_INCREMENT,

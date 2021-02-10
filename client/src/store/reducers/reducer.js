@@ -9,6 +9,7 @@ const initState = {
 	itemsObj: {},
 	statsObj: {},
 
+	test: 1,
 
 	page: "Loading",
 };

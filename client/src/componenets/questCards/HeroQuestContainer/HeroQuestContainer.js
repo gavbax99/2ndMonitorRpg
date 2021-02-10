@@ -13,12 +13,17 @@ import Materials from "../../../constants/Materials";
 // Components
 import HeroQuestCard from "../HeroQuestCard/HeroQuestCard";
 
+// Functions
+import { updateMaterial } from "../../../constants/Functions";
+
 const HeroQuestContainer = props => {
 
 	// Redux
 	const dispatch = useDispatch();
 	const heroQuestObj = useSelector(state => state.reducer.heroQuestObj);
 	const statsObj = useSelector(state => state.reducer.statsObj);
+
+	const test = useSelector(state => state.reducer.test);
 
 	// State
 	const [questCompleted, setQuestCompleted] = useState(false);
@@ -107,8 +112,12 @@ const HeroQuestContainer = props => {
 						{mat: Materials.axe, qty: 1},
 					]}
 				/>
-			: 
-				<div onClick={() => { giveQuest("Test", 20) }}>
+			: // else 
+				// <div onClick={() => { giveQuest("Test", 20) }}>
+				<div onClick={() => { 
+					updateMaterial(1, "TEST", test, "TEST");
+					// console.log(test);
+				}}>
 					Give quest
 				</div>
 			}
